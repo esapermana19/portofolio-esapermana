@@ -1,0 +1,1392 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Esa Permana — Web & Mobile Developer</title>
+  <link rel="stylesheet" href="./src/output.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+
+<body class="bg-gallery-white text-ink antialiased selection:bg-pricing-blue selection:text-white">
+
+  <!-- Floating Dynamic Island Header -->
+  <header id="main-header" class="fixed top-0 inset-x-0 z-50 pt-3 md:pt-4 pointer-events-none">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+      
+      <!-- Brand Name di Kiri Luar -->
+      <a href="#" id="desktop-logo"
+        class="pointer-events-auto text-lg md:text-xl font-bold tracking-tight text-ink hover:text-slate transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+        Esa Permana
+      </a>
+
+      <!-- Central Morphing Capsule Nav (Ukuran Container Navigasi Tetap Stabil) -->
+      <div id="nav-dock"
+        class="pointer-events-auto relative flex items-center p-1 bg-white/85 backdrop-blur-xl border border-hairline-silver rounded-full shadow-sm transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+        
+        <!-- Scrolled Brand Icon / Mini Logo (Smooth expand width & opacity) -->
+        <div id="scrolled-brand"
+          class="flex items-center overflow-hidden max-w-0 opacity-0 -translate-x-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <a href="#" class="pl-3.5 pr-2 text-xs font-bold text-ink whitespace-nowrap hover:text-pricing-blue transition">
+            Esa
+          </a>
+        </div>
+
+        <!-- Nav Container with Sliding Indicator (Isolasi Posisi Relatif yang Selalu Stabil) -->
+        <nav id="nav-pill-container" class="relative flex items-center">
+          <!-- Indikator pill aktif -->
+          <div id="nav-indicator"
+            class="absolute top-0 bottom-0 bg-ink rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none"></div>
+
+          <a href="#overview" data-nav="overview"
+            class="nav-item relative z-10 px-4 sm:px-5 py-1.5 text-[13px] font-medium tracking-[-0.12px] transition-colors duration-200 text-white select-none">
+            Overview
+          </a>
+          <a href="#about" data-nav="about"
+            class="nav-item relative z-10 px-4 sm:px-5 py-1.5 text-[13px] font-medium tracking-[-0.12px] transition-colors duration-200 text-slate select-none">
+            About
+          </a>
+          <a href="#journey" data-nav="journey"
+            class="nav-item relative z-10 px-4 sm:px-5 py-1.5 text-[13px] font-medium tracking-[-0.12px] transition-colors duration-200 text-slate select-none">
+            Journey
+          </a>
+          <a href="#skills" data-nav="skills"
+            class="nav-item relative z-10 px-4 sm:px-5 py-1.5 text-[13px] font-medium tracking-[-0.12px] transition-colors duration-200 text-slate select-none">
+            Tech Stack
+          </a>
+          <a href="#portfolio" data-nav="portfolio"
+            class="nav-item relative z-10 px-4 sm:px-5 py-1.5 text-[13px] font-medium tracking-[-0.12px] transition-colors duration-200 text-slate select-none">
+            Projects
+          </a>
+          <a href="#contact" data-nav="contact"
+            class="nav-item relative z-10 px-4 sm:px-5 py-1.5 text-[13px] font-medium tracking-[-0.12px] transition-colors duration-200 text-slate select-none">
+            Contact
+          </a>
+        </nav>
+
+        <!-- Scrolled Compact Button (Smooth expand width & opacity) -->
+        <div id="scrolled-cta-container"
+          class="flex items-center overflow-hidden max-w-0 opacity-0 scale-90 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <div class="pr-1 pl-1.5">
+            <a href="#contact"
+              class="inline-flex items-center justify-center px-4 py-1.5 text-[12px] font-medium text-white bg-pricing-blue rounded-full hover:bg-opacity-90 transition shadow-sm whitespace-nowrap">
+              Let's Talk
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button CTA di Kanan Luar -->
+      <div id="desktop-cta-outer" class="pointer-events-auto hidden md:flex items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+        <a href="#contact"
+          class="inline-flex items-center justify-center px-5 py-2 text-[13px] font-medium tracking-[-0.12px] text-white bg-pricing-blue rounded-full hover:bg-opacity-95 transition shadow-sm">
+          Let's Talk
+        </a>
+      </div>
+
+      <!-- Hamburger Button Mobile -->
+      <button id="menu-btn" class="pointer-events-auto md:hidden text-ink p-2 rounded-full bg-white/80 backdrop-blur-md border border-hairline-silver focus:outline-none" aria-label="Menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="pointer-events-auto hidden md:hidden mx-4 mt-2 bg-white/95 backdrop-blur-xl border border-hairline-silver rounded-3xl p-5 space-y-4 shadow-xl">
+      <a href="#overview" class="block text-sm font-medium text-slate hover:text-ink transition mobile-link">Overview</a>
+      <a href="#about" class="block text-sm font-medium text-slate hover:text-ink transition mobile-link">About</a>
+      <a href="#skills" class="block text-sm font-medium text-slate hover:text-ink transition mobile-link">Tech Stack</a>
+      <a href="#portfolio" class="block text-sm font-medium text-slate hover:text-ink transition mobile-link">Projects</a>
+      <a href="#contact" class="block text-sm font-medium text-slate hover:text-ink transition mobile-link">Contact</a>
+      <div class="pt-2">
+        <a href="#contact"
+          class="block w-full text-center py-2.5 text-xs font-medium text-white bg-pricing-blue rounded-full mobile-link">
+          Let's Talk
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero Section: Background menyatu seamless dari paling atas layar tanpa strip putih header -->
+    <section id="overview" class="relative bg-gradient-to-b from-blue-100/50 via-gallery-white to-gallery-white overflow-hidden pb-12 md:pb-20 pt-24 md:pt-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+        
+        <!-- Layout Grid Hero (2 Kolom di HP, 3 Kolom di Laptop/Desktop) -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 items-center md:items-start relative z-10">
+          
+          <!-- 1. Kiri (Mobile & Desktop): Nama dan Deskripsi -->
+          <div class="flex flex-col justify-between h-full space-y-4 md:space-y-12">
+            <div>
+              <p class="text-[12px] font-semibold text-launch-orange tracking-wider uppercase mb-1">
+                Portfolio
+              </p>
+              <h1 class="text-4xl sm:text-6xl md:text-8xl font-black text-ink leading-none tracking-tighter uppercase italic">
+                I'M ESA
+              </h1>
+            </div>
+            
+            <div class="mt-2 md:mt-auto pb-0 md:pb-8 max-w-xs">
+              <p class="text-xs sm:text-[14px] text-slate leading-relaxed font-normal tracking-[-0.224px]">
+                Hello, I’m Esa Permana, a web and mobile developer who is passionate about creating functional and engaging digital solutions.
+              </p>
+              <a href="#contact"
+                class="mt-4 md:mt-6 inline-flex items-center justify-center px-5 py-2.5 text-xs md:text-sm font-medium text-white bg-pricing-blue rounded-full hover:bg-opacity-90 transition shadow-sm">
+                Let's Talk &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- 2. Kanan di HP / Tengah di Desktop: Foto Profil -->
+          <div class="relative flex justify-center items-end h-[260px] sm:h-[340px] md:h-[460px]">
+            <!-- Soft Apple-like backdrop glow -->
+            <div class="absolute inset-0 bg-blue-400/25 rounded-full blur-2xl md:blur-3xl -z-10 transform scale-105"></div>
+            <img src="./img/profil1.png" alt="Esa Permana"
+              class="w-auto h-full object-cover object-bottom drop-shadow-lg z-10 select-none" />
+          </div>
+
+          <!-- 3. Bawah di HP (Sejajar) / Kanan di Desktop: Socials & Role -->
+          <div class="col-span-2 md:col-span-1 flex flex-row md:flex-col justify-between items-center md:items-end text-left md:text-right space-y-0 md:space-y-12 pt-4 md:pt-0 border-t md:border-t-0 border-hairline-silver/60 mt-4 md:mt-0">
+            
+            <!-- Follow Me + Social Icons -->
+            <div class="flex flex-col items-start md:items-end">
+              <p class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-slate mb-2 md:mb-4">
+                Follow Me
+              </p>
+              <div class="flex space-x-2 sm:space-x-3">
+                <a href="https://github.com/esapermana19" target="_blank" rel="noopener noreferrer"
+                  class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-steel/40 flex items-center justify-center text-slate hover:bg-pricing-blue hover:text-white hover:border-pricing-blue transition">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z" />
+                  </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/esa-permana-ab2373362" target="_blank" rel="noopener noreferrer"
+                  class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-steel/40 flex items-center justify-center text-slate hover:bg-pricing-blue hover:text-white hover:border-pricing-blue transition">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                </a>
+                <a href="https://www.instagram.com/esaprmna" target="_blank" rel="noopener noreferrer"
+                  class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-steel/40 flex items-center justify-center text-slate hover:bg-pricing-blue hover:text-white hover:border-pricing-blue transition">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Role Title -->
+            <div class="md:mt-auto md:pb-8 text-right">
+              <h2 class="text-base sm:text-2xl md:text-5xl font-black text-ink leading-tight uppercase">
+                WEB & MOBILE <br />
+                <span class="text-pricing-blue">DEVELOPER</span>
+              </h2>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Background Watermark Text "DEVELOPER" di Belakang -->
+      <div class="absolute top-1/2 md:top-1/3 -translate-y-1/2 md:translate-y-0 left-0 w-full overflow-hidden flex justify-center z-0 opacity-[0.06] pointer-events-none select-none">
+        <span class="text-[6rem] sm:text-[10rem] md:text-[15rem] font-black uppercase tracking-tight text-ink whitespace-nowrap">
+          DEVELOPER
+        </span>
+      </div>
+    </section>
+
+    <!-- 3. About Section (Editorial 2-Column with 28px Radius) -->
+    <section id="about" class="py-20 md:py-28 bg-gallery-white border-t border-hairline-silver">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+          <div>
+            <div class="overflow-hidden rounded-[28px] border border-hairline-silver bg-studio-mist">
+              <img src="./img/about.jpeg" alt="About Esa"
+                class="w-full h-80 md:h-[460px] object-cover object-center grayscale hover:grayscale-0 transition duration-700 ease-out" />
+            </div>
+          </div>
+          <div>
+            <span class="text-launch-orange font-semibold text-[12px] uppercase tracking-wider">About Me</span>
+            <h2 class="text-3xl md:text-[40px] font-semibold text-ink leading-tight tracking-tight mt-2 mb-6">
+              Coding with logic, <br> Building with passion
+            </h2>
+            <p class="text-slate leading-relaxed tracking-[-0.224px] mb-8 font-normal text-[15px] md:text-[17px]">
+              As a software developer, I specialize in full-stack and mobile architecture. With a deep understanding of
+              database management and structural testing (such as white-box testing), I focus on writing code that is
+              not only functional but also secure, well-structured, and efficient.
+            </p>
+            <a href="#portfolio" class="inline-flex items-center text-apple-blue font-medium hover:underline gap-1 text-[15px]">
+              View my work &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+                <!-- Journey: Education & Experience Section (Interactive Editorial Timeline) -->
+    <section id="journey" class="py-20 md:py-28 bg-gallery-white border-t border-hairline-silver select-none">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- 2 Columns: Education & Experience side by side, completely cardless -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+          
+          <!-- Column 1: Education -->
+          <div class="flex flex-col">
+            <h3 class="text-2xl md:text-[28px] font-bold text-ink tracking-tight mb-8">
+              Education
+            </h3>
+
+            <!-- Scrollable Timeline Stream -->
+            <div id="education-timeline" class="timeline-column overflow-y-auto max-h-[460px] px-3 py-2 space-y-9 custom-timeline-scroll">
+              
+              <!-- Edu 1: LP3I (Default Active) -->
+              <div class="timeline-item is-active relative pl-14 cursor-pointer group">
+                <div class="timeline-line absolute left-[19px] top-9 bottom-[-36px] w-[2px] bg-hairline-silver"></div>
+                <div class="timeline-bullet absolute left-1 top-0 w-8 h-8 rounded-full font-semibold text-xs flex items-center justify-center">
+                  1
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 class="timeline-title text-base font-semibold tracking-tight">
+                      Politeknik LP3I
+                    </h4>
+                    <span class="timeline-year text-xs tracking-tight whitespace-nowrap">
+                      2024 &ndash; 2027
+                    </span>
+                  </div>
+                  <div class="timeline-subtitle text-[14px] mb-1">
+                    D3 Manajemen Informatika
+                  </div>
+                </div>
+              </div>
+
+              <!-- Edu 2: SMKN 1 Kawali -->
+              <div class="timeline-item relative pl-14 cursor-pointer group">
+                <div class="timeline-line absolute left-[19px] top-9 bottom-[-36px] w-[2px] bg-hairline-silver"></div>
+                <div class="timeline-bullet absolute left-1 top-0 w-8 h-8 rounded-full font-medium text-xs flex items-center justify-center">
+                  2
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 class="timeline-title text-base font-semibold tracking-tight">
+                      SMKN 1 Kawali
+                    </h4>
+                    <span class="timeline-year text-xs tracking-tight whitespace-nowrap">
+                      2021 &ndash; 2024
+                    </span>
+                  </div>
+                  <div class="timeline-subtitle text-[14px] mb-1">
+                    Teknik Komputer dan Jaringan
+                  </div>
+                </div>
+              </div>
+
+              <!-- Edu 3: SMPN 1 Kawali -->
+              <div class="timeline-item relative pl-14 cursor-pointer group">
+                <div class="timeline-line absolute left-[19px] top-9 bottom-[-36px] w-[2px] bg-hairline-silver"></div>
+                <div class="timeline-bullet absolute left-1 top-0 w-8 h-8 rounded-full font-medium text-xs flex items-center justify-center">
+                  3
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 class="timeline-title text-base font-semibold tracking-tight">
+                      SMPN 1 Kawali
+                    </h4>
+                    <span class="timeline-year text-xs tracking-tight whitespace-nowrap">
+                      2018 &ndash; 2021
+                    </span>
+                  </div>
+                  <div class="timeline-subtitle text-[14px] mb-1">
+                    Sekolah Menengah Pertama
+                  </div>
+                </div>
+              </div>
+
+              <!-- Edu 4: SDN 1 Gereba -->
+              <div class="timeline-item relative pl-14 cursor-pointer group">
+                <div class="timeline-bullet absolute left-1 top-0 w-8 h-8 rounded-full font-medium text-xs flex items-center justify-center">
+                  4
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 class="timeline-title text-base font-semibold tracking-tight">
+                      SDN 1 Gereba
+                    </h4>
+                    <span class="timeline-year text-xs tracking-tight whitespace-nowrap">
+                      2012 &ndash; 2018
+                    </span>
+                  </div>
+                  <div class="timeline-subtitle text-[14px] mb-1">
+                    Sekolah Dasar
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Column 2: Experience -->
+          <div class="flex flex-col">
+            <h3 class="text-2xl md:text-[28px] font-bold text-ink tracking-tight mb-8">
+              Experience
+            </h3>
+
+            <!-- Scrollable Timeline Stream -->
+            <div id="experience-timeline" class="timeline-column overflow-y-auto max-h-[460px] px-3 py-2 space-y-9 custom-timeline-scroll">
+              
+              <!-- Exp 1: Alfatih Maulana (Default Active) -->
+              <div class="timeline-item is-active relative pl-14 cursor-pointer group">
+                <div class="timeline-line absolute left-[19px] top-9 bottom-[-36px] w-[2px] bg-hairline-silver"></div>
+                <div class="timeline-bullet absolute left-1 top-0 w-8 h-8 rounded-full font-semibold text-xs flex items-center justify-center">
+                  1
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 class="timeline-title text-base font-semibold tracking-tight">
+                      Inovasi Alfatih Maulana
+                    </h4>
+                    <span class="timeline-year text-xs tracking-tight whitespace-nowrap">
+                      Sep &ndash; Des 2026
+                    </span>
+                  </div>
+                  <div class="timeline-subtitle text-[14px] mb-1">
+                    Junior Developer &bull; <span>Magang</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Exp 2: Mandiri Waterproof -->
+              <div class="timeline-item relative pl-14 cursor-pointer group">
+                <div class="timeline-line absolute left-[19px] top-9 bottom-[-36px] w-[2px] bg-hairline-silver"></div>
+                <div class="timeline-bullet absolute left-1 top-0 w-8 h-8 rounded-full font-medium text-xs flex items-center justify-center">
+                  2
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 class="timeline-title text-base font-semibold tracking-tight">
+                      Mandiri Waterproof (Online Shop)
+                    </h4>
+                    <span class="timeline-year text-xs tracking-tight whitespace-nowrap">
+                      Agt 2025 &ndash; Feb 2026
+                    </span>
+                  </div>
+                  <div class="timeline-subtitle text-[14px] mb-1">
+                    Designer Photoshop
+                  </div>
+                </div>
+              </div>
+
+              <!-- Exp 3: BEM -->
+              <div class="timeline-item relative pl-14 cursor-pointer group">
+                <div class="timeline-bullet absolute left-1 top-0 w-8 h-8 rounded-full font-medium text-xs flex items-center justify-center">
+                  3
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 class="timeline-title text-base font-semibold tracking-tight">
+                      Badan Eksekutif Mahasiswa (BEM)
+                    </h4>
+                    <span class="timeline-year text-xs tracking-tight whitespace-nowrap">
+                      2025 &ndash; 2026
+                    </span>
+                  </div>
+                  <div class="timeline-subtitle text-[14px] mb-1">
+                    Menteri Luar Kampus
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. Tech Stack Section (Studio Mist Backdrop & 28px Rounded White Cards) -->
+    <section id="skills" class="py-16 md:py-24 border-t border-hairline-silver bg-studio-mist">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <span class="text-launch-orange font-semibold text-[12px] uppercase tracking-wider">Skillset</span>
+          <h3 class="text-2xl md:text-3xl font-semibold text-ink mt-1">Technologies & Tools</h3>
+        </div>
+
+                        <!-- Row 1: Web & Mobile Engineering -->
+        <div class="mac-dock-row flex items-end justify-center gap-1 sm:gap-3 md:gap-5 mb-6 py-4 px-2 overflow-visible">
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#E34F26" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">HTML5</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#1572B6" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">CSS3</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#06B6D4" d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">Tailwind</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#42B883" d="M24,1.61H14.06L12,5.16,9.94,1.61H0L12,22.39ZM12,14.08,5.16,2.23H9.59L12,6.41l2.41-4.18h4.43Z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">Vue.js</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#777BB4" d="M7.01 10.207h-.944l-.515 2.648h.838c.556 0 .97-.105 1.242-.314.272-.21.455-.559.55-1.049.092-.47.05-.802-.124-.995-.175-.193-.523-.29-1.047-.29zM12 5.688C5.373 5.688 0 8.514 0 12s5.373 6.313 12 6.313S24 15.486 24 12c0-3.486-5.373-6.312-12-6.312zm-3.26 7.451c-.261.25-.575.438-.917.551-.336.108-.765.164-1.285.164H5.357l-.327 1.681H3.652l1.23-6.326h2.65c.797 0 1.378.209 1.744.628.366.418.476 1.002.33 1.752a2.836 2.836 0 0 1-.305.847c-.143.255-.33.49-.561.703zm4.024.715l.543-2.799c.063-.318.039-.536-.068-.651-.107-.116-.336-.174-.687-.174H11.46l-.704 3.625H9.388l1.23-6.327h1.367l-.327 1.682h1.218c.767 0 1.295.134 1.586.401s.378.7.263 1.299l-.572 2.944h-1.389zm7.597-2.265a2.782 2.782 0 0 1-.305.847c-.143.255-.33.49-.561.703a2.44 2.44 0 0 1-.917.551c-.336.108-.765.164-1.286.164h-1.18l-.327 1.682h-1.378l1.23-6.326h2.649c.797 0 1.378.209 1.744.628.366.417.477 1.001.331 1.751zM17.766 10.207h-.943l-.516 2.648h.838c.557 0 .971-.105 1.242-.314.272-.21.455-.559.551-1.049.092-.47.049-.802-.125-.995s-.524-.29-1.047-.29z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">PHP</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#FF2D20" d="M23.642 5.43a.364.364 0 01.014.1v5.149c0 .135-.073.26-.189.326l-4.323 2.49v4.934a.378.378 0 01-.188.326L9.93 23.949a.316.316 0 01-.066.027c-.008.002-.016.008-.024.01a.348.348 0 01-.192 0c-.011-.002-.02-.008-.03-.012-.02-.008-.042-.014-.062-.025L.533 18.755a.376.376 0 01-.189-.326V2.974c0-.033.005-.066.014-.098.003-.012.01-.02.014-.032a.369.369 0 01.023-.058c.004-.013.015-.022.023-.033l.033-.045c.012-.01.025-.018.037-.027.014-.012.027-.024.041-.034H.53L5.043.05a.375.375 0 01.375 0L9.93 2.647h.002c.015.01.027.021.04.033l.038.027c.013.014.02.03.033.045.008.011.02.021.025.033.01.02.017.038.024.058.003.011.01.021.013.032.01.031.014.064.014.098v9.652l3.76-2.164V5.527c0-.033.004-.066.013-.098.003-.01.01-.02.013-.032a.487.487 0 01.024-.059c.007-.012.018-.02.025-.033.012-.015.021-.03.033-.043.012-.012.025-.02.037-.028.014-.01.026-.023.041-.032h.001l4.513-2.598a.375.375 0 01.375 0l4.513 2.598c.016.01.027.021.042.031.012.01.025.018.036.028.013.014.022.03.034.044.008.012.019.021.024.033.011.02.018.04.024.06.006.01.012.021.015.032zm-.74 5.032V6.179l-1.578.908-2.182 1.256v4.283zm-4.51 7.75v-4.287l-2.147 1.225-6.126 3.498v4.325zM1.093 3.624v14.588l8.273 4.761v-4.325l-4.322-2.445-.002-.003H5.04c-.014-.01-.025-.021-.04-.031-.011-.01-.024-.018-.035-.027l-.001-.002c-.013-.012-.021-.025-.031-.04-.01-.011-.021-.022-.028-.036h-.002c-.008-.014-.013-.031-.02-.047-.006-.016-.014-.027-.018-.043a.49.49 0 01-.008-.057c-.002-.014-.006-.027-.006-.041V5.789l-2.18-1.257zM5.23.81L1.47 2.974l3.76 2.164 3.758-2.164zm1.956 13.505l2.182-1.256V3.624l-1.58.91-2.182 1.255v9.435zm11.581-10.95l-3.76 2.163 3.76 2.163 3.759-2.164zm-.376 4.978L16.21 7.087 14.63 6.18v4.283l2.182 1.256 1.58.908zm-8.65 9.654l5.514-3.148 2.756-1.572-3.757-2.163-4.323 2.489-3.941 2.27z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">Laravel</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#7F52FF" d="M24 24H0V0h24L12 12Z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">Kotlin</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#4479A1" d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08c-.378 2.045-.876 3.533-1.492 4.46-.482.716-1.01 1.073-1.583 1.073-.153 0-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268 0 .483-.075.647-.222.197-.18.295-.382.295-.605 0-.155-.077-.47-.23-.944L6.23 14.615h.91l.727 2.36c.164.536.233.91.205 1.123.4-1.064.678-2.227.835-3.483zm12.325 4.08h-2.63v-5.53h.885v4.85h1.745zm-3.32.135l-1.016-.5c.09-.076.177-.158.255-.25.433-.506.648-1.258.648-2.253 0-1.83-.718-2.746-2.155-2.746-.704 0-1.254.232-1.65.697-.43.508-.646 1.256-.646 2.245 0 .972.19 1.686.574 2.14.35.41.877.615 1.583.615.264 0 .506-.033.725-.098l1.325.772.36-.622zM15.5 17.588c-.225-.36-.337-.94-.337-1.736 0-1.393.424-2.09 1.27-2.09.443 0 .77.167.977.5.224.362.336.936.336 1.723 0 1.404-.424 2.108-1.27 2.108-.445 0-.77-.167-.978-.5zm-1.658-.425c0 .47-.172.856-.516 1.156-.344.3-.803.45-1.384.45-.543 0-1.064-.172-1.573-.515l.237-.476c.438.22.833.328 1.19.328.332 0 .593-.073.783-.22a.754.754 0 00.3-.615c0-.33-.23-.61-.648-.845-.388-.213-1.163-.657-1.163-.657-.422-.307-.632-.636-.632-1.177 0-.45.157-.81.47-1.085.315-.278.72-.415 1.22-.415.512 0 .98.136 1.4.41l-.213.476a2.726 2.726 0 00-1.064-.23c-.283 0-.502.068-.654.206a.685.685 0 00-.248.524c0 .328.234.61.666.85.393.215 1.187.67 1.187.67.433.305.648.63.648 1.168zm9.382-5.852c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193a3.223 3.223 0 00-.695-.675c-.214-.146-.682-.35-.77-.595l-.013-.014c.146-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395a8.867 8.867 0 00-1.104-.823c-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514a17.69 17.69 0 01-.547-1.163c-.12-.262-.193-.523-.34-.763-.69-1.137-1.437-1.826-2.586-2.5-.247-.14-.543-.2-.856-.274-.167-.008-.334-.02-.5-.027-.11-.047-.216-.174-.31-.235-.38-.24-1.364-.76-1.644-.072-.18.434.267.862.422 1.082.115.153.26.328.34.5.047.116.06.235.107.356.106.294.207.622.347.897.073.14.153.287.247.413.054.073.146.107.167.227-.094.136-.1.334-.154.5-.24.757-.146 1.693.194 2.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133a3.445 3.445 0 01-.35-.4 8.76 8.76 0 01-.747-1.218c-.11-.21-.202-.436-.29-.643-.04-.08-.04-.2-.107-.24-.1.146-.247.273-.32.453-.127.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303a2.478 2.478 0 01-.24-.427c-.16-.374-.24-.788-.414-1.162-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.368-.52-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.675.28.962.46a5.953 5.953 0 012.085 2.286c.08.154.115.295.188.455.14.33.313.663.455.982.14.315.275.636.476.897.1.14.502.213.682.286.133.06.34.115.46.188.23.14.454.3.67.454.11.076.443.243.463.378z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">MySQL</span>
+          </div>
+        </div>
+
+        <!-- Row 2: Database, Multimedia, Office & QA -->
+        <div class="mac-dock-row flex items-end justify-center gap-1 sm:gap-3 md:gap-5 py-4 px-2 overflow-visible">
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#4169E1" d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">PostgreSQL</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 128 128">
+                <path class="ps-bg" fill="#94a3b8" data-brand="#001e36" d="M22.667 1.6h82.666C117.867 1.6 128 11.733 128 24.267v79.466c0 12.534-10.133 22.667-22.667 22.667H22.667C10.133 126.4 0 116.267 0 103.733V24.267C0 11.733 10.133 1.6 22.667 1.6Z"/><path class="ps-fg" fill="#ffffff" data-brand="#31a8ff" d="M45.867 33.333c-1.6 0-3.2 0-4.853.054-1.654.053-3.201.053-4.641.107-1.44.053-2.773.053-4.053.106-1.227.053-2.08.053-2.987.053-.373 0-.533.213-.533.587v54.88c0 .48.213.694.64.694h10.347c.373-.054.64-.374.586-.747v-17.12c1.013 0 1.76 0 2.294.053.533.053 1.386.053 2.666.053 4.374 0 8.374-.48 12-1.813 3.467-1.28 6.454-3.52 8.587-6.507 2.133-2.986 3.2-6.773 3.2-11.36 0-2.4-.426-4.693-1.226-6.933A16.98 16.98 0 0 0 64 39.36a19.049 19.049 0 0 0-7.147-4.374c-2.987-1.12-6.613-1.653-10.986-1.653Zm1.19 10.505c1.9.036 3.75.368 5.476 1.068 1.547.587 2.827 1.654 3.734 3.04a8.779 8.779 0 0 1 1.227 4.748c0 2.346-.534 4.16-1.654 5.493-1.174 1.333-2.667 2.347-4.373 2.827-1.974.64-4.054.959-6.134.959h-2.827c-.64 0-1.332-.053-2.079-.106v-17.92c.373-.054 1.12-.107 2.187-.053 1.013-.054 2.239-.054 3.626-.054.273-.007.546-.008.817-.002zm44.73 2.723c-3.787 0-6.934.586-9.44 1.866-2.293 1.067-4.267 2.773-5.6 4.906-1.173 1.974-1.814 4.16-1.814 6.454a11.447 11.447 0 0 0 1.227 5.44 13.809 13.809 0 0 0 4.054 4.533 32.629 32.629 0 0 0 7.573 3.84c2.613 1.013 4.373 1.813 5.227 2.506.853.694 1.28 1.387 1.28 2.134 0 .96-.587 1.867-1.44 2.24-.96.48-2.4.747-4.427.747-2.133 0-4.267-.267-6.294-.8a22.834 22.834 0 0 1-6.613-2.613c-.16-.107-.32-.16-.48-.053-.16.106-.213.319-.213.479v9.28c-.053.427.213.8.587 1.013a21.49 21.49 0 0 0 5.44 1.707c2.4.48 4.799.693 7.252.693 3.84 0 7.041-.586 9.654-1.706 2.4-.96 4.48-2.613 5.973-4.747a12.41 12.41 0 0 0 2.08-7.093 11.512 11.512 0 0 0-1.226-5.493c-1.014-1.814-2.454-3.307-4.214-4.427a38.625 38.625 0 0 0-8.213-3.894 48.784 48.784 0 0 1-3.787-1.76c-.693-.373-1.333-.853-1.813-1.44-.32-.427-.533-.906-.533-1.386 0-.48.16-1.013.426-1.44.374-.533.96-.907 1.653-1.067 1.014-.266 2.134-.427 3.2-.374 2.027 0 4 .267 5.974.694 1.814.373 3.52.96 5.12 1.814.213.106.48.106.96 0a.656.656 0 0 0 .267-.534v-8.693c0-.214-.054-.427-.107-.64-.107-.213-.32-.427-.533-.48A18.762 18.762 0 0 0 98.4 47.04a45.98 45.98 0 0 0-6.613-.48z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">Photoshop</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <defs>
+  <linearGradient id="canva-dock-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#00C4CC"/>
+    <stop offset="100%" stop-color="#7D2AE8"/>
+  </linearGradient>
+</defs>
+<path class="canva-bg" fill="#94a3b8" data-brand="url(#canva-dock-grad)" d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0z"/>
+<path class="canva-fg" fill="#ffffff" data-brand="#ffffff" d="M6.962 7.68c.754 0 1.337.549 1.405 1.2.069.583-.171 1.097-.822 1.406-.343.171-.48.172-.549.069-.034-.069 0-.137.069-.206.617-.514.617-.926.548-1.508-.034-.378-.308-.618-.583-.618-1.2 0-2.914 2.674-2.674 4.629.103.754.549 1.646 1.509 1.646.308 0 .65-.103.96-.24.5-.264.799-.47 1.097-.8-.073-.885.704-2.046 1.851-2.046.515 0 .926.205.96.583.068.514-.377.582-.514.582s-.378-.034-.378-.17c-.034-.138.309-.07.275-.378-.035-.206-.24-.274-.446-.274-.72 0-1.131.994-1.029 1.611.035.275.172.549.447.549.205 0 .514-.31.617-.755.068-.308.343-.514.583-.514.102 0 .17.034.205.171v.138c-.034.137-.137.548-.102.651 0 .069.034.171.17.171.092 0 .436-.18.777-.459.117-.59.253-1.298.253-1.357.034-.24.137-.48.617-.48.103 0 .171.034.205.171v.138l-.136.617c.445-.583 1.097-.994 1.508-.994.172 0 .309.102.309.274 0 .103 0 .274-.069.446-.137.377-.309.96-.412 1.474 0 .137.035.274.207.274.171 0 .685-.206 1.096-.754l.007-.004c-.002-.068-.007-.134-.007-.202 0-.411.035-.754.104-.994.068-.274.411-.514.617-.514.103 0 .205.069.205.171 0 .035 0 .103-.034.137-.137.446-.24.857-.24 1.269 0 .24.034.582.102.788 0 .034.035.069.07.069.068 0 .548-.445.89-1.028-.308-.206-.48-.549-.48-.96 0-.72.446-1.097.858-1.097.343 0 .617.24.617.72 0 .308-.103.65-.274.96h.102a.77.77 0 0 0 .584-.24.293.293 0 0 1 .134-.117c.335-.425.83-.74 1.41-.74.48 0 .924.205.959.582.068.515-.378.618-.515.618l-.002-.002c-.138 0-.377-.035-.377-.172 0-.137.309-.068.274-.376-.034-.206-.24-.275-.446-.275-.686 0-1.13.891-1.028 1.611.034.275.171.583.445.583.206 0 .515-.308.652-.754.068-.274.343-.514.583-.514.103 0 .17.034.205.171 0 .069 0 .206-.137.652-.17.308-.171.48-.137.617.034.274.171.48.309.583.034.034.068.102.068.102 0 .069-.034.138-.137.138-.034 0-.068 0-.103-.035-.514-.205-.72-.548-.789-.891-.205.24-.445.377-.72.377-.445 0-.89-.411-.96-.926a1.609 1.609 0 0 1 .075-.649c-.203.13-.422.203-.623.203h-.17c-.447.652-.927 1.098-1.27 1.303a.896.896 0 0 1-.377.104c-.068 0-.171-.035-.205-.104-.095-.152-.156-.392-.193-.667-.481.527-1.145.805-1.453.805-.343 0-.548-.206-.582-.55v-.376c.102-.754.377-1.2.377-1.337a.074.074 0 0 0-.069-.07c-.24 0-1.028.824-1.166 1.373l-.103.445c-.068.309-.377.515-.582.515-.103 0-.172-.035-.206-.172v-.137l.046-.233c-.435.31-.87.508-1.075.508-.308 0-.48-.172-.514-.412-.206.274-.445.412-.754.412-.352 0-.696-.24-.862-.593-.244.275-.523.553-.852.764-.48.309-1.028.549-1.68.549-.582 0-1.097-.309-1.371-.583-.412-.377-.651-.96-.686-1.509-.205-1.68.823-3.84 2.4-4.8.378-.205.755-.343 1.132-.343zm9.77 3.291c-.104 0-.172.172-.172.343 0 .274.137.583.309.755a1.74 1.74 0 0 0 .102-.583c0-.343-.137-.515-.24-.515z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">Canva</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#111111" d="M24.189 6.442V2.671l-4.535 2.383V4.91c.002-1.505-1.078-2.411-2.638-2.411H2.64C.993 2.5 0 3.407 0 4.91V8.72L6.354 12 0 15.316v3.8C0 20.595 1 21.5 2.64 21.5h14.373c1.56 0 2.639-.907 2.639-2.382v-.197l4.536 2.409v-3.828L13.64 12 24.19 6.443zM9.982 13.873l7.797 4.083H2.157l7.825-4.083zm7.741-7.828l-7.742 4.057-7.825-4.057h15.567z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">CapCut</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#2B579A" d="M23.004 1.5q.41 0 .703.293t.293.703v19.008q0 .41-.293.703t-.703.293H6.996q-.41 0-.703-.293T6 21.504V18H.996q-.41 0-.703-.293T0 17.004V6.996q0-.41.293-.703T.996 6H6V2.496q0-.41.293-.703t.703-.293zM6.035 11.203l1.442 4.735h1.64l1.57-7.876H9.036l-.937 4.653-1.325-4.5H5.38l-1.406 4.523-.938-4.675H1.312l1.57 7.874h1.641zM22.5 21v-3h-15v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3h-15v3Z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">MS Word</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#217346" d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-.41 0-.7-.3-.3-.29-.3-.7V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h5V2.5q0-.41.3-.7.29-.3.7-.3zM6 13.28l1.42 2.66h2.14l-2.38-3.87 2.34-3.8H7.46l-1.3 2.4-.05.08-.04.09-.64-1.28-.66-1.29H2.59l2.27 3.82-2.48 3.85h2.16zM14.25 21v-3H7.5v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3H7.5v3zm8.25 15v-3h-6.75v3zm0-4.5v-3.75h-6.75v3.75zm0-5.25V7.5h-6.75v3.75zm0-5.25V3h-6.75v3Z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">MS Excel</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#D24726" d="M13.5 1.5q1.453 0 2.795.375 1.342.375 2.508 1.06 1.166.686 2.12 1.641.956.955 1.641 2.121.686 1.166 1.061 2.508Q24 10.547 24 12q0 1.453-.375 2.795-.375 1.342-1.06 2.508-.686 1.166-1.641 2.12-.955.956-2.121 1.641-1.166.686-2.508 1.061-1.342.375-2.795.375-1.29 0-2.52-.305-1.23-.304-2.337-.884-1.108-.58-2.063-1.418-.955-.838-1.693-1.893H.997q-.411 0-.704-.293T0 17.004V6.996q0-.41.293-.703T.996 6h3.89q.739-1.055 1.694-1.893.955-.837 2.063-1.418 1.107-.58 2.337-.884Q12.21 1.5 13.5 1.5zm.75 1.535v8.215h8.215q-.14-1.64-.826-3.076-.686-1.436-1.782-2.531-1.095-1.096-2.537-1.782-1.441-.685-3.07-.826zm-5.262 7.57q0-.68-.228-1.166-.229-.486-.627-.79-.399-.305-.938-.446-.539-.14-1.172-.14H2.848v7.863h1.84v-2.742H5.93q.574 0 1.119-.17t.978-.493q.434-.322.698-.802.263-.48.263-1.114zM13.5 21q1.172 0 2.262-.287t2.056-.82q.967-.534 1.776-1.278.808-.744 1.418-1.664.61-.92.984-1.986.375-1.067.469-2.227h-9.703V3.035q-1.735.14-3.27.908T6.797 6h4.207q.41 0 .703.293t.293.703v10.008q0 .41-.293.703t-.703.293H6.797q.644.715 1.412 1.271.768.557 1.623.944.855.387 1.781.586Q12.54 21 13.5 21zM5.812 9.598q.575 0 .915.228.34.229.34.838 0 .27-.124.44-.123.17-.31.275-.188.105-.422.146-.234.041-.445.041H4.687V9.598Z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">PowerPoint</span>
+          </div>
+          <div class="mac-dock-item group relative flex flex-col items-center justify-end px-2 py-1 cursor-pointer select-none">
+            <div class="dock-icon-box flex items-center justify-center transition-[filter] duration-200">
+              <svg class="dock-svg w-10 h-10 sm:w-11 sm:h-11 transition-colors duration-200" viewBox="0 0 24 24">
+                <path fill="currentColor" data-brand="#059669" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+              </svg>
+            </div>
+            <span class="dock-label text-[11px] font-medium text-slate transition-colors duration-200 group-hover:text-ink mt-1.5 whitespace-nowrap">QA Testing</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Portfolio Section (Apple Showcase: Pure Seamless Canvas with Rounded 3D Image Collage) -->
+    <section id="portfolio" class="py-20 md:py-28 bg-gallery-white border-t border-hairline-silver relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        
+        <!-- Section Header -->
+        <div class="text-center mb-4">
+          <span class="text-launch-orange font-semibold text-[12px] uppercase tracking-wider">Featured Work</span>
+          <h3 class="text-3xl md:text-[40px] font-semibold text-ink tracking-tight mt-1">Built with precision.</h3>
+        </div>
+
+        <!-- Dynamic Expandable Capsule: "More Projects" (Hover to Expand like Navbar) -->
+        <div class="flex justify-center mb-8 relative z-30">
+          <div id="project-capsule-wrapper" class="relative group/capsule inline-block">
+            
+            <!-- Default Collapsed Black Capsule ("More Projects") -->
+            <div id="capsule-trigger"
+              class="flex items-center gap-2 px-5 py-2 rounded-full bg-ink text-white text-xs font-medium cursor-pointer shadow-md transition-all duration-300 group-hover/capsule:opacity-0 group-hover/capsule:pointer-events-none group-hover/capsule:scale-95 select-none">
+              <span>More Projects</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover/capsule:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+
+            <!-- Expanded Floating Segmented Switcher (Muncul saat hover, style persis Navbar) -->
+            <div id="capsule-expanded"
+              class="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-none opacity-0 scale-95 group-hover/capsule:pointer-events-auto group-hover/capsule:opacity-100 group-hover/capsule:scale-100 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]">
+              <nav id="proj-pill-container"
+                class="relative flex items-center p-1 bg-studio-mist/95 backdrop-blur-xl border border-hairline-silver rounded-full shadow-lg">
+                
+                <!-- Sliding Indicator Pill Proyek -->
+                <div id="proj-indicator"
+                  class="absolute top-1 bottom-1 bg-ink rounded-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none"></div>
+
+                <button data-proj-index="0"
+                  class="proj-item relative z-10 px-4 py-1.5 text-xs font-medium tracking-[-0.12px] transition-colors duration-200 text-white whitespace-nowrap select-none">
+                  ASUP Ciamis
+                </button>
+                <button data-proj-index="1"
+                  class="proj-item relative z-10 px-4 py-1.5 text-xs font-medium tracking-[-0.12px] transition-colors duration-200 text-slate hover:text-ink whitespace-nowrap select-none">
+                  LabaPlus
+                </button>
+                <button data-proj-index="2"
+                  class="proj-item relative z-10 px-4 py-1.5 text-xs font-medium tracking-[-0.12px] transition-colors duration-200 text-slate hover:text-ink whitespace-nowrap select-none">
+                  SPMB
+                </button>
+                <button data-proj-index="3"
+                  class="proj-item relative z-10 px-4 py-1.5 text-xs font-medium tracking-[-0.12px] transition-colors duration-200 text-slate hover:text-ink whitespace-nowrap select-none">
+                  SiAbsensi KKN
+                </button>
+                <button data-proj-index="4"
+                  class="proj-item relative z-10 px-4 py-1.5 text-xs font-medium tracking-[-0.12px] transition-colors duration-200 text-slate hover:text-ink whitespace-nowrap select-none">
+                  Antrian Klinik
+                </button>
+              </nav>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Main Full Project Stage: Pure White Seamless Background -->
+        <div class="relative">
+
+          <div id="project-stage" class="w-full transition-all duration-500">
+            
+            <!-- Top Project Meta (Dibuat Lebih Kecil & Berada Rapi di Tengah) -->
+            <div class="text-center max-w-xl mx-auto pb-4">
+              <h4 id="proj-title" class="text-xl sm:text-2xl md:text-3xl font-semibold text-ink tracking-tight transition-all duration-300">
+                ASUP Ciamis
+              </h4>
+              <p id="proj-summary" class="text-xs sm:text-sm text-slate mt-1.5 font-normal tracking-[-0.224px] leading-relaxed">
+                Aplikasi Surat Masuk & Pelayanan Terpadu Kabupaten Ciamis dengan alur verifikasi berkas hierarkis.
+              </p>
+            </div>
+
+            <!-- Main Stage: Interactive 3D Collage Deck & Info Panel (2 Columns) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
+              
+              <!-- Left/Center: 3D Image Collage Deck (Gambar Utuh Aspect 16:9 Tanpa Terpotong) -->
+              <div class="lg:col-span-8 relative flex flex-col items-center">
+                
+                <!-- Collage / Fan Deck Viewport: Hovering pauses autoplay, click left/right zones to navigate -->
+                <div class="relative w-full h-[280px] sm:h-[360px] md:h-[420px] flex items-center justify-center overflow-hidden [perspective:1200px] select-none cursor-pointer" id="collage-viewport">
+                  
+                  <!-- Deck Container for Stacking Images (Ukuran proporsional 16:9) -->
+                  <div id="collage-deck" class="relative w-[88%] sm:w-[82%] md:w-[78%] aspect-[16/9] flex items-center justify-center">
+                    <!-- Images will be populated and transformed dynamically by JS (Object-Contain / Preserved 16:9) -->
+                  </div>
+
+                  <!-- Invisible Left Click Zone for Previous Slide -->
+                  <div id="click-zone-left" class="absolute left-0 top-0 bottom-0 w-1/4 z-40 cursor-w-resize" title="Klik untuk gambar sebelumnya"></div>
+
+                  <!-- Invisible Right Click Zone for Next Slide -->
+                  <div id="click-zone-right" class="absolute right-0 top-0 bottom-0 w-1/4 z-40 cursor-e-resize" title="Klik untuk gambar selanjutnya"></div>
+
+                  <!-- Counter Floating Pill -->
+                  <div class="absolute bottom-2 right-4 bg-ink/75 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-medium text-white shadow-sm select-none z-40 pointer-events-none">
+                    <span id="collage-counter">1 / 13</span>
+                  </div>
+                </div>
+
+                <!-- Slide Dot Indicators -->
+                <div id="collage-dots" class="flex items-center justify-center gap-1.5 mt-3 py-1 max-w-full overflow-x-auto">
+                  <!-- Generated dynamically via JS -->
+                </div>
+
+              </div>
+
+              <!-- Right: Document Caption & Tech Stack Details (Clean Minimalist Flat Panel) -->
+              <div class="lg:col-span-4 flex flex-col justify-between space-y-6">
+                <div class="bg-studio-mist/60 rounded-[24px] border border-hairline-silver/70 p-6 space-y-4">
+                  <div>
+                    <span class="text-[10px] font-bold text-slate uppercase tracking-wider block">Fokus Dokumentasi</span>
+                    <h5 id="doc-title" class="text-base sm:text-lg font-semibold text-ink mt-0.5 transition-all duration-300">
+                      Landing Page & Portal Utama
+                    </h5>
+                  </div>
+
+                  <p id="doc-desc" class="text-xs sm:text-[13px] text-slate leading-relaxed font-normal transition-all duration-300 min-h-[60px]">
+                    Tampilan selamat datang warga dengan pencarian status berkas dan informasi alur pengajuan dokumen.
+                  </p>
+
+                  <div class="pt-3 border-t border-hairline-silver/70">
+                    <span class="text-[10px] font-semibold text-slate uppercase tracking-wider block mb-1">Tech Stack Digunakan</span>
+                    <p id="proj-stack" class="text-xs font-medium text-ink">
+                      Laravel &bull; MySQL &bull; Tailwind CSS &bull; JavaScript
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Action Button in Card -->
+                <div class="flex items-center justify-between gap-3">
+                  <a id="proj-repo-link" href="https://github.com/esapermana19" target="_blank" rel="noopener noreferrer"
+                    class="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-full text-xs font-medium text-white bg-pricing-blue hover:bg-opacity-95 transition shadow-sm gap-1.5">
+                    <span>Lihat di GitHub</span>
+                    <span>&rarr;</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. Contact Section -->
+    <section id="contact" class="py-20 md:py-28 bg-studio-mist border-t border-hairline-silver">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <span class="text-launch-orange font-semibold text-[12px] uppercase tracking-wider">Contact</span>
+        <h3 class="text-3xl md:text-5xl font-semibold text-ink leading-tight tracking-tight mt-2 mb-4">
+          Let’s build something together.
+        </h3>
+        <p class="text-[17px] text-slate leading-[1.47] tracking-[-0.374px] mb-8 font-normal">
+          Whether you have an upcoming project, technical inquiry, or full-time opportunity, feel free to reach out.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href="mailto:esapermana.dev@gmail.com"
+            class="px-6 py-2.5 text-[13px] font-medium text-white bg-pricing-blue rounded-full hover:bg-opacity-90 transition shadow-sm">
+            Send an Email
+          </a>
+          <a href="https://www.linkedin.com/in/esa-permana-ab2373362" target="_blank" rel="noopener noreferrer"
+            class="px-5 py-2.5 text-[13px] font-medium text-ink bg-gallery-white border border-steel/50 rounded-full hover:border-ink transition">
+            LinkedIn
+          </a>
+          <a href="https://github.com/esapermana19" target="_blank" rel="noopener noreferrer"
+            class="px-5 py-2.5 text-[13px] font-medium text-ink bg-gallery-white border border-steel/50 rounded-full hover:border-ink transition">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gallery-white border-t border-hairline-silver py-10 text-[12px] text-slate">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Esa Permana. All rights reserved.</p>
+      <div class="flex items-center space-x-6">
+        <a href="#overview" class="hover:text-ink transition">Back to top</a>
+        <a href="https://github.com/esapermana19" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition">GitHub</a>
+        <a href="https://www.linkedin.com/in/esa-permana-ab2373362" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition">LinkedIn</a>
+        <a href="https://www.instagram.com/esaprmna" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Data & Logic Project Carousel + Interactive Header -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Data Koleksi Proyek & Daftar Dokumentasi
+      const projectsData = [
+        {
+          id: "asupciamis",
+          title: "ASUP Ciamis",
+          summary: "Aplikasi Surat Masuk & Pelayanan Terpadu Kabupaten Ciamis dengan alur verifikasi berkas hierarkis.",
+          stack: "Laravel • MySQL • Tailwind CSS • JavaScript",
+          repoUrl: "https://github.com/esapermana19/Aplikasi-Subsidi-Pupuk-Ciamis",
+          documents: [
+            { img: "./img/project/asupciamis/1.png", title: "Landing Page & Portal Utama", desc: "Tampilan selamat datang warga dengan pencarian status berkas dan informasi alur pengajuan dokumen." },
+            { img: "./img/project/asupciamis/2.png", title: "Formulir Registrasi Layanan", desc: "Formulir digital dinamis dengan validasi data real-time dan upload persyaratan resmi." },
+            { img: "./img/project/asupciamis/3.png", title: "Halaman Login", desc: "Tampilan halaman login untuk petani, mitra, dan admin subsidi pupuk." },
+            { img: "./img/project/asupciamis/admin1.png", title: "Dashboard Manajemen Admin", desc: "Ringkasan analitik statistik berkas masuk, verifikasi tertunda, dan dokumen selesai." },
+            { img: "./img/project/asupciamis/admin2.png", title: "Kelola Data Master", desc: "Pengelolaan data petani, mitra, serta ketersediaan pupuk." },
+            { img: "./img/project/asupciamis/admin3.png", title: "Rekonsiliasi Data", desc: "Pengecekan transaksi, dan selisih saldo." },
+            { img: "./img/project/asupciamis/admin4.png", title: "Portal Chat", desc: "Fitur chat untuk mitra dan petani menghubungi admin." },
+            { img: "./img/project/asupciamis/user1.png", title: "Portal Transaksi Pupuk", desc: "Antarmuka beranda warga di smartphone untuk registrasi dan melakukan pembelian pupuk." },
+            { img: "./img/project/asupciamis/user2.png", title: "Riwayat Transaksi Pupuk", desc: "Daftar histori seluruh transaksi yang pernah diajukan sebelumnya." },
+            { img: "./img/project/asupciamis/user3.png", title: "Ketersediaan Pupuk di Mitra", desc: "Kelola ketersediaan pupuk oleh mitra." },
+            { img: "./img/project/asupciamis/user4.png", title: "Scan Transaksi dengan QR", desc: "Scan bukti transaksi untuk pengambilan pupuk" },
+            { img: "./img/project/asupciamis/user5.png", title: "Alur Pembelian Pupuk", desc: "Tahapan pembelian pupuk di mitra secara cashless" },
+            { img: "./img/project/asupciamis/user6.png", title: "Halaman Pembayaran", desc: "Halaman pembayaran transaksi oleh admin." }
+          ]
+        },
+        {
+          id: "labaplus",
+          title: "LabaPlus",
+          summary: "Sistem Manajemen Keuangan, Pembukuan Kas, dan Pencatatan Laba-Rugi UMKM secara transparan.",
+          stack: "Flutter • Dart • SQLite • MQTT • WebRTC • shadcn-flutter ",
+          repoUrl: "https://github.com/esapermana19/labaplus-flutter",
+          documents: [
+            { img: "./img/project/labaplus/gambar1.png", title: "Splash Screen", desc: "Halaman splash sebelum masuk aplikasi." },
+            { img: "./img/project/labaplus/gambar7.png", title: "Halaman AKtivasi", desc: "Halaman aktivasi aplikasi." },
+            { img: "./img/project/labaplus/gambar2.png", title: "Halaman Landing", desc: "Halaman setelah proses aktivasi." },
+            { img: "./img/project/labaplus/gambar3.png", title: "Menu Kasir", desc: "halaman proses transaksi." },
+            { img: "./img/project/labaplus/gambar4.png", title: "Laporan Laba Rugi Komprehensif", desc: "Kalkulasi otomatis margin laba per periode bulanan dan tahunan sesuai standar akuntansi." },
+            { img: "./img/project/labaplus/gambar5.png", title: "QR Sinkronisasi Data", desc: "QR untuk sinkronisasi data (multi-kasir)." },
+            { img: "./img/project/labaplus/gambar6.png", title: "Scan Sinkronisasi Data", desc: "Scan untuk sinkronisasi data (multi-kasir)." }
+          ]
+        },
+        {
+          id: "spmb",
+          title: "SPMB Online",
+          summary: "Sistem Penerimaan Mahasiswa Baru Berbasis Online dengan seleksi berkas dan ujian terintegrasi.",
+          stack: "Laravel • MySQL • Tailwind CSS • RESTful API",
+          repoUrl: "https://github.com/esapermana19/pmb-sdn-mayangcinde",
+          documents: [
+            { img: "./img/project/spmb/gambar1.png", title: "Portal Utama Informasi PMB", desc: "Informasi sekolah dan gelombang pendaftaran." },
+            { img: "./img/project/spmb/gambar2.png", title: "Pendaftaran Akun Calon Mahasiswa", desc: "Autentikasi akun pendaftar dengan verifikasi email." },
+            { img: "./img/project/spmb/gambar4.png", title: "Pengaturan Gelombang", desc: "Halaman pengaturan gelombang aktif." },
+            { img: "./img/project/spmb/gambar3.png", title: "Data Calon Siswa", desc: "Data calon siswa yang melakukan pendaftaran." },
+            { img: "./img/project/spmb/gambar6.png", title: "Pengaturan Profil Sekolah", desc: "Pengaturan profil dan informasi sekolah." },
+            { img: "./img/project/spmb/gambar7.png", title: "Halaman Utama Pendaftar", desc: "Halaman utama orang tua calon siswa untuk mendaftarkan anaknya." },
+            { img: "./img/project/spmb/gambar8.png", title: "Formulir Biodata", desc: "Formulir pengisian biodata calon siswa dan orang tua calon siswa." },
+            { img: "./img/project/spmb/gambar9.png", title: "Upload Berkas", desc: "Halaman upload berkas persyaratan calon siswa" },
+            { img: "./img/project/spmb/gambar10.png", title: "Tahap Pendaftaran", desc: "Tahapan proses pendaftaran calon siswa" },
+            { img: "./img/project/spmb/gambar11.png", title: "Hasil Seleksi", desc: "Halaman hasil seleksi pendaftaran calon siswa." }
+          ]
+        },
+        {
+          id: "siabsensikkn",
+          title: "SiAbsensi KKN",
+          summary: "Sistem Absensi Kehadiran & Monitoring Kegiatan Mahasiswa KKN Berbasis Geolocation.",
+          stack: "PHP/Laravel • MySQL • Tailwind CSS • GPS Tracking",
+          repoUrl: "https://github.com/esapermana19/absensikkn4",
+          documents: [
+            { img: "./img/project/siabsensikkn/gambar1.png", title: "Login Akun Mahasiswa KKN", desc: "Autentikasi berbasis NIM dan kelompok desa penempatan mahasiswa." },
+            { img: "./img/project/siabsensikkn/gambar2.png", title: "Dashboard Kehadiran Mandiri", desc: "Ringkasan total kehadiran, jam kerja pengabdian, dan rekap logbook mingguan." },
+            { img: "./img/project/siabsensikkn/gambar3.png", title: "Kelola Anggota KKN", desc: "Menu kelola anggota di role skretaris untuk mengelola anggota KKN" },
+            { img: "./img/project/siabsensikkn/gambar4.png", title: "Set Lokasi GPS", desc: "Menentukan radius titik lokasi posko atau desa KKN" },
+            { img: "./img/project/siabsensikkn/gambar5.png", title: "Histori & Riwayat Presensi", desc: "Tabel rincian tanggal, jam masuk, jam keluar, dan status kehadiran lengkap." },
+            { img: "./img/project/siabsensikkn/gambar6.png", title: "Daftar Kegiatan Anggota", desc: "Daftar kegiatan yang direncanakan, dilakukan, atau tidak terlaksana oleh anggota." },
+            { img: "./img/project/siabsensikkn/gambar7.png", title: "Dashboard Bendahara", desc: "Dashboard untuk memantau keuangan kelompok." },
+            { img: "./img/project/siabsensikkn/gambar8.png", title: "Catat Keuangan", desc: "Pencatatan keuangan kelompok untuk pemasukan dan pengeluaran serta ekspor laporan" },
+            { img: "./img/project/siabsensikkn/gambar9.png", title: "Arus Kas", desc: "Catatan keluar masuk kas kelompok." },
+            { img: "./img/project/siabsensikkn/gambar10.png", title: "Laporan Kegiatan KKN", desc: "Jurnal kegiatan mahasiswa KKN untuk bahan penyusunan laporan akhir." }
+          ]
+        },
+        {
+          id: "antrianklinik",
+          title: "Antrian Klinik",
+          summary: "Sistem Manajemen Antrian Pelayanan Medis, Pemanggilan Pasien, dan Alur Poli Klinik.",
+          stack: "PHP • MySQL • Tailwind CSS • Vue.js • Audio Speech",
+          repoUrl: "https://github.com/esapermana19/antrian-klinik",
+          documents: [
+            { img: "./img/project/antrianklinik/gambar1.png", title: "Dashboard", desc: "Dashboard admin klinik atau dokter" },
+            { img: "./img/project/antrianklinik/gambar2.png", title: "Halaman Pengambilan Tiket Pasien", desc: "Antarmuka touch-screen mandiri untuk memilih antrian" },
+            { img: "./img/project/antrianklinik/gambar3.png", title: "Panel Pemanggilan Petugas Loket", desc: "Kontrol pemanggilan suara nomor antrian, panggilan ulang, dan lewati antrian." },
+            { img: "./img/project/antrianklinik/gambar4.png", title: "Pengisian data antrian", desc: "Pengisian data pasien untuk mengambil antrian." },
+            { img: "./img/project/antrianklinik/gambar5.png", title: "Layar Display Antrian Ruang Tunggu", desc: "Visualisasi nomor antrian yang sedang dilayani pada masing-masing loket dan poli dokter." }
+          ]
+        }
+      ];
+
+      // State Aktif
+      let currentProjIndex = 0;
+      let currentDocIndex = 0;
+      let autoPlayTimer = null;
+
+      // DOM Elements
+      const projTitle = document.getElementById("proj-title");
+      const projSummary = document.getElementById("proj-summary");
+      const projStack = document.getElementById("proj-stack");
+      const projRepoLink = document.getElementById("proj-repo-link");
+      const projIndicator = document.getElementById("proj-indicator");
+      const projItems = document.querySelectorAll(".proj-item");
+
+      const collageDeck = document.getElementById("collage-deck");
+      const collageDots = document.getElementById("collage-dots");
+      const collageCounter = document.getElementById("collage-counter");
+      const docTitle = document.getElementById("doc-title");
+      const docDesc = document.getElementById("doc-desc");
+
+      const clickZoneLeft = document.getElementById("click-zone-left");
+      const clickZoneRight = document.getElementById("click-zone-right");
+      const btnPrevProjBottom = document.getElementById("btn-prev-proj-bottom");
+      const btnNextProjBottom = document.getElementById("btn-next-proj-bottom");
+
+      // Gerakkan Pill Indicator Proyek di Bagian Bawah
+      function moveProjIndicatorTo(target) {
+        if (!target || !projIndicator) return;
+        const offsetLeft = target.offsetLeft;
+        const width = target.offsetWidth;
+
+        projIndicator.style.left = `${offsetLeft}px`;
+        projIndicator.style.width = `${width}px`;
+
+        projItems.forEach(item => {
+          if (item === target) {
+            item.classList.remove("text-slate", "hover:text-ink");
+            item.classList.add("text-white");
+          } else {
+            item.classList.remove("text-white");
+            item.classList.add("text-slate", "hover:text-ink");
+          }
+        });
+      }
+
+      // Render Dots Indicator
+      function renderDots(total, activeIdx) {
+        if (!collageDots) return;
+        collageDots.innerHTML = "";
+        for (let i = 0; i < total; i++) {
+          const dot = document.createElement("button");
+          dot.setAttribute("aria-label", `Slide ${i + 1}`);
+          dot.className = `h-2 rounded-full transition-all duration-300 ${
+            i === activeIdx ? "w-6 bg-ink" : "w-2 bg-hairline-silver hover:bg-steel"
+          }`;
+          dot.addEventListener("click", () => {
+            goToSlide(i);
+            resetAutoPlay();
+          });
+          collageDots.appendChild(dot);
+        }
+      }
+
+      // Bangun Kartu Kolase 3D (Menyesuaikan Rasio 16:9 Landscape vs 1:1 Square & Mobile)
+      function buildCollageDeck() {
+        if (!collageDeck) return;
+        collageDeck.innerHTML = "";
+        const project = projectsData[currentProjIndex];
+        const docs = project.documents;
+
+        docs.forEach((doc, idx) => {
+          // Deteksi apakah gambar persegi (LabaPlus atau ASUP Ciamis user1-user6)
+          const isSquareOrMobile = doc.img.includes('/labaplus/') || doc.img.includes('/asupciamis/user');
+
+          const cardWrapper = document.createElement("div");
+          // Gunakan rasio 16:9 yang konsisten agar tumpukan kolase tetap rapi
+          // Untuk gambar HP / persegi (1080x1080), berikan padding lembut dan object-contain transparan/bersih
+          cardWrapper.className = "collage-card absolute inset-0 w-full h-full rounded-[22px] sm:rounded-[28px] overflow-hidden cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xl bg-studio-mist/40 border border-hairline-silver/60 flex items-center justify-center select-none";
+          cardWrapper.setAttribute("data-doc-index", idx);
+
+          const img = document.createElement("img");
+          img.src = doc.img;
+          img.alt = doc.title;
+          
+          if (isSquareOrMobile) {
+            // Gambar HP / square 1080x1080: tampil utuh 100% tanpa terpotong atas/bawah dengan padding vertikal yang proporsional
+            img.className = "h-[94%] w-auto max-w-full object-contain rounded-[18px] sm:rounded-[22px] select-none transition-transform duration-500 drop-shadow-md";
+          } else {
+            // Gambar desktop landscape 1920x1080 (16:9): tampil penuh tajam tanpa distorsi
+            img.className = "w-full h-full object-contain sm:object-cover object-center rounded-[22px] sm:rounded-[28px] select-none transition-transform duration-500";
+          }
+
+          cardWrapper.appendChild(img);
+
+          // Klik kartu langsung untuk menjadikannya fokus di tengah
+          cardWrapper.addEventListener("click", (e) => {
+            e.stopPropagation();
+            goToSlide(idx);
+            resetAutoPlay();
+          });
+
+          collageDeck.appendChild(cardWrapper);
+        });
+
+        updateDeckTransform();
+      }
+
+      // Update Transform & Posisi 3D Kartu Berdasarkan Indeks Aktif
+      function updateDeckTransform() {
+        const cards = document.querySelectorAll(".collage-card");
+        const total = cards.length;
+        if (total === 0) return;
+
+        cards.forEach((card, i) => {
+          let diff = i - currentDocIndex;
+
+          if (diff === 0) {
+            // KARTU UTAMA (CENTER / FOCUS)
+            card.style.transform = `translate3d(0, 0, 90px) rotateY(0deg) scale(1)`;
+            card.style.zIndex = "30";
+            card.style.opacity = "1";
+            card.style.filter = "none";
+          } else if (diff < 0) {
+            // KARTU DI SEBELAH KIRI (FAN DECK LEFT)
+            const factor = Math.max(diff, -5);
+            const xOffset = factor * 34; // px bergeser ke kiri
+            const rotateAngle = factor * 4.5;
+            const scale = Math.max(0.78, 1 + factor * 0.05);
+
+            card.style.transform = `translate3d(${xOffset}px, 0, ${diff * 18}px) rotateY(${rotateAngle}deg) scale(${scale})`;
+            card.style.zIndex = `${25 + diff}`;
+            card.style.opacity = Math.max(0.18, 1 + diff * 0.18).toString();
+            card.style.filter = "brightness(0.9)";
+          } else {
+            // KARTU DI SEBELAH KANAN (FAN DECK RIGHT)
+            const factor = Math.min(diff, 5);
+            const xOffset = factor * 34; // px bergeser ke kanan
+            const rotateAngle = factor * -4.5;
+            const scale = Math.max(0.78, 1 - factor * 0.05);
+
+            card.style.transform = `translate3d(${xOffset}px, 0, ${-diff * 18}px) rotateY(${rotateAngle}deg) scale(${scale})`;
+            card.style.zIndex = `${25 - diff}`;
+            card.style.opacity = Math.max(0.18, 1 - diff * 0.18).toString();
+            card.style.filter = "brightness(0.9)";
+          }
+        });
+
+        // Update Text Info
+        const project = projectsData[currentProjIndex];
+        const activeDoc = project.documents[currentDocIndex];
+        if (activeDoc) {
+          docTitle.textContent = activeDoc.title;
+          docDesc.textContent = activeDoc.desc;
+          collageCounter.textContent = `${currentDocIndex + 1} / ${total}`;
+        }
+        renderDots(total, currentDocIndex);
+      }
+
+      // Geser Slide
+      function goToSlide(newIdx) {
+        const total = projectsData[currentProjIndex].documents.length;
+        if (newIdx < 0) newIdx = total - 1;
+        if (newIdx >= total) newIdx = 0;
+
+        currentDocIndex = newIdx;
+        updateDeckTransform();
+      }
+
+      // Auto-play Otomatis Berpindah Gambar
+      function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayTimer = setInterval(() => {
+          goToSlide(currentDocIndex + 1);
+        }, 2500); // Berpindah otomatis setiap 2.5 detik
+      }
+
+      function stopAutoPlay() {
+        if (autoPlayTimer) {
+          clearInterval(autoPlayTimer);
+          autoPlayTimer = null;
+        }
+      }
+
+      function resetAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+      }
+
+      // Pause autoplay saat mouse diarahkan ke area deck, resume saat leave
+      const collageViewport = document.getElementById("collage-viewport");
+      collageViewport?.addEventListener("mouseenter", stopAutoPlay);
+      collageViewport?.addEventListener("mouseleave", startAutoPlay);
+
+      // Klik Zona Kiri / Kanan (Tanpa Button) untuk Geser Gambar
+      clickZoneLeft?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        goToSlide(currentDocIndex - 1);
+        resetAutoPlay();
+      });
+
+      clickZoneRight?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        goToSlide(currentDocIndex + 1);
+        resetAutoPlay();
+      });
+
+      // Fungsi Ganti Project
+      function switchProject(newProjIndex) {
+        if (newProjIndex < 0) newProjIndex = projectsData.length - 1;
+        if (newProjIndex >= projectsData.length) newProjIndex = 0;
+
+        currentProjIndex = newProjIndex;
+        currentDocIndex = 0;
+        const project = projectsData[currentProjIndex];
+
+        // Update Project Meta
+        projTitle.textContent = project.title;
+        projSummary.textContent = project.summary;
+        projStack.textContent = project.stack;
+        projRepoLink.href = project.repoUrl;
+
+        // Geser pill indicator di bawah
+        const activeBtn = document.querySelector(`.proj-item[data-proj-index="${currentProjIndex}"]`);
+        if (activeBtn) {
+          moveProjIndicatorTo(activeBtn);
+        }
+
+        // Rebuild 3D Collage Deck untuk project yang dipilih & mulai auto-play
+        buildCollageDeck();
+        startAutoPlay();
+      }
+
+      // Event Listeners: Project Selector Switcher (di Bawah)
+      projItems.forEach(item => {
+        item.addEventListener("click", () => {
+          const idx = parseInt(item.getAttribute("data-proj-index"));
+          switchProject(idx);
+        });
+      });
+
+      btnPrevProjBottom?.addEventListener("click", () => switchProject(currentProjIndex - 1));
+      btnNextProjBottom?.addEventListener("click", () => switchProject(currentProjIndex + 1));
+
+      // Swipe / Drag gesture di Collage Deck
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      collageViewport?.addEventListener("touchstart", (e) => {
+        stopAutoPlay();
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      collageViewport?.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 35) {
+          goToSlide(currentDocIndex + 1); // Geser ke kiri -> next
+        } else if (touchEndX - touchStartX > 35) {
+          goToSlide(currentDocIndex - 1); // Geser ke kanan -> prev
+        }
+        startAutoPlay();
+      }, { passive: true });
+
+      // Keyboard Nav
+      window.addEventListener("keydown", (e) => {
+        const portfolioSec = document.getElementById("portfolio");
+        if (!portfolioSec) return;
+        const rect = portfolioSec.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          if (e.key === "ArrowLeft") {
+            goToSlide(currentDocIndex - 1);
+            resetAutoPlay();
+          } else if (e.key === "ArrowRight") {
+            goToSlide(currentDocIndex + 1);
+            resetAutoPlay();
+          }
+        }
+      });
+
+      // Inisialisasi awal
+      requestAnimationFrame(() => {
+        const firstProjBtn = document.querySelector('.proj-item[data-proj-index="0"]');
+        if (firstProjBtn) moveProjIndicatorTo(firstProjBtn);
+      });
+      switchProject(0);
+
+      // 2. Logic Header Floating Navigation & ScrollSpy
+      const indicator = document.getElementById("nav-indicator");
+      const navItems = document.querySelectorAll(".nav-item");
+      const sections = document.querySelectorAll("section[id]");
+
+      const desktopLogo = document.getElementById("desktop-logo");
+      const desktopCtaOuter = document.getElementById("desktop-cta-outer");
+      const scrolledBrand = document.getElementById("scrolled-brand");
+      const scrolledCta = document.getElementById("scrolled-cta-container");
+      const navDock = document.getElementById("nav-dock");
+
+      let isLockedByClick = false;
+      let clickLockTimeout = null;
+      let isScrolledState = false;
+
+      function moveIndicatorTo(target) {
+        if (!target || !indicator) return;
+        const offsetLeft = target.offsetLeft;
+        const width = target.offsetWidth;
+
+        indicator.style.left = `${offsetLeft}px`;
+        indicator.style.width = `${width}px`;
+
+        navItems.forEach(item => {
+          if (item === target) {
+            item.classList.remove("text-slate", "hover:text-ink");
+            item.classList.add("text-white");
+          } else {
+            item.classList.remove("text-white");
+            item.classList.add("text-slate", "hover:text-ink");
+          }
+        });
+      }
+
+      if (navItems.length > 0) {
+        requestAnimationFrame(() => {
+          moveIndicatorTo(navItems[0]);
+        });
+      }
+
+      navItems.forEach(item => {
+        item.addEventListener("click", () => {
+          isLockedByClick = true;
+          clearTimeout(clickLockTimeout);
+          moveIndicatorTo(item);
+          clickLockTimeout = setTimeout(() => {
+            isLockedByClick = false;
+          }, 900);
+        });
+      });
+
+      function updateMorphState(shouldScroll) {
+        if (shouldScroll === isScrolledState) return;
+        isScrolledState = shouldScroll;
+
+        if (shouldScroll) {
+          desktopLogo?.classList.add("opacity-0", "-translate-x-6", "pointer-events-none");
+          desktopCtaOuter?.classList.add("opacity-0", "translate-x-6", "pointer-events-none");
+
+          navDock?.classList.add("shadow-md", "bg-white/95");
+          navDock?.classList.remove("bg-white/85");
+
+          scrolledBrand?.classList.remove("max-w-0", "opacity-0", "-translate-x-2");
+          scrolledBrand?.classList.add("max-w-[70px]", "opacity-100", "translate-x-0");
+
+          scrolledCta?.classList.remove("max-w-0", "opacity-0", "scale-90");
+          scrolledCta?.classList.add("max-w-[120px]", "opacity-100", "scale-100");
+        } else {
+          desktopLogo?.classList.remove("opacity-0", "-translate-x-6", "pointer-events-none");
+          desktopCtaOuter?.classList.remove("opacity-0", "translate-x-6", "pointer-events-none");
+
+          navDock?.classList.remove("shadow-md", "bg-white/95");
+          navDock?.classList.add("bg-white/85");
+
+          scrolledBrand?.classList.remove("max-w-[70px]", "opacity-100", "translate-x-0");
+          scrolledBrand?.classList.add("max-w-0", "opacity-0", "-translate-x-2");
+
+          scrolledCta?.classList.remove("max-w-[120px]", "opacity-100", "scale-100");
+          scrolledCta?.classList.add("max-w-0", "opacity-0", "scale-90");
+        }
+      }
+
+      window.addEventListener("scroll", () => {
+        const scrollY = window.scrollY;
+        updateMorphState(scrollY > 60);
+
+        if (!isLockedByClick) {
+          const scrollPosition = scrollY + 220;
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute("id");
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+              const correspondingNav = document.querySelector(`.nav-item[data-nav="${sectionId}"]`);
+              if (correspondingNav) {
+                moveIndicatorTo(correspondingNav);
+              }
+            }
+          });
+        }
+      }, { passive: true });
+
+      window.addEventListener("resize", () => {
+        const currentActive = document.querySelector(".nav-item.text-white") || navItems[0];
+        if (currentActive) {
+          moveIndicatorTo(currentActive);
+        }
+        const activeProj = document.querySelector('.proj-item.text-white');
+        if (activeProj) {
+          moveProjIndicatorTo(activeProj);
+        }
+      });
+
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileLinks = document.querySelectorAll(".mobile-link");
+
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      }
+    });
+  
+    // ==========================================
+    // Mac Dock Fisheye Magnification Effect for Skills
+    // ==========================================
+    const dockRows = document.querySelectorAll(".mac-dock-row");
+
+    dockRows.forEach((row) => {
+      const items = Array.from(row.querySelectorAll(".mac-dock-item"));
+      const MAX_DISTANCE = 110; // Area of magnification around cursor
+      const BASE_SCALE = 1.0;
+      const MAX_SCALE = 1.55;  // Magnification peak
+
+      function updateColors(item, isHovered) {
+        const svg = item.querySelector(".dock-svg");
+        if (!svg) return;
+
+        // Custom multi-color logos: Photoshop & Canva
+        const psBg = svg.querySelector(".ps-bg");
+        const psFg = svg.querySelector(".ps-fg");
+        if (psBg && psFg) {
+          psBg.setAttribute("fill", isHovered ? psBg.dataset.brand : "#94a3b8");
+          psFg.setAttribute("fill", isHovered ? psFg.dataset.brand : "#ffffff");
+          return;
+        }
+
+        const canvaBg = svg.querySelector(".canva-bg");
+        const canvaFg = svg.querySelector(".canva-fg");
+        if (canvaBg && canvaFg) {
+          canvaBg.setAttribute("fill", isHovered ? canvaBg.dataset.brand : "#94a3b8");
+          canvaFg.setAttribute("fill", isHovered ? canvaFg.dataset.brand : "#ffffff");
+          return;
+        }
+
+        // Standard brand logos
+        const brandPath = svg.querySelector("[data-brand]");
+        if (brandPath) {
+          brandPath.setAttribute("fill", isHovered ? brandPath.dataset.brand : "currentColor");
+          svg.style.color = isHovered ? brandPath.dataset.brand : "#94a3b8";
+        }
+      }
+
+      // Initialize default monocolor state
+      items.forEach((item) => {
+        const svg = item.querySelector(".dock-svg");
+        if (svg) svg.style.color = "#94a3b8";
+        updateColors(item, false);
+      });
+
+      row.addEventListener("mousemove", (e) => {
+        const mouseX = e.clientX;
+
+        items.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          const itemCenter = rect.left + rect.width / 2;
+          const dist = Math.abs(mouseX - itemCenter);
+          const iconBox = item.querySelector(".dock-icon-box");
+
+          if (dist < MAX_DISTANCE) {
+            // Cosine bell curve for smooth organic Mac Dock zoom
+            const factor = Math.cos((dist / MAX_DISTANCE) * (Math.PI / 2));
+            const scale = BASE_SCALE + (MAX_SCALE - BASE_SCALE) * factor;
+            const translateY = -12 * factor;
+
+            if (iconBox) {
+              iconBox.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+              iconBox.style.transformOrigin = "bottom center";
+              iconBox.style.filter = factor > 0.6 ? "drop-shadow(0 10px 15px rgba(0,0,0,0.12))" : "none";
+            }
+            // If closest item or within immediate focus, show full brand color
+            updateColors(item, factor > 0.45);
+          } else {
+            if (iconBox) {
+              iconBox.style.transform = `scale(${BASE_SCALE}) translateY(0px)`;
+              iconBox.style.filter = "none";
+            }
+            updateColors(item, false);
+          }
+        });
+      });
+
+      row.addEventListener("mouseleave", () => {
+        items.forEach((item) => {
+          const iconBox = item.querySelector(".dock-icon-box");
+          if (iconBox) {
+            iconBox.style.transform = `scale(${BASE_SCALE}) translateY(0px)`;
+            iconBox.style.filter = "none";
+          }
+          updateColors(item, false);
+        });
+      });
+    });
+
+  
+    // ==========================================
+    // Interactive Timeline: Smooth Class Toggle
+    const timelineColumns = document.querySelectorAll(".timeline-column");
+
+    timelineColumns.forEach((col) => {
+      const items = col.querySelectorAll(".timeline-item");
+
+      function setActive(target) {
+        if (target.classList.contains("is-active")) return;
+        items.forEach((item) => {
+          if (item === target) {
+            item.classList.add("is-active");
+          } else {
+            item.classList.remove("is-active");
+          }
+        });
+      }
+
+      items.forEach((item) => {
+        item.addEventListener("mouseenter", () => setActive(item));
+        item.addEventListener("click", () => setActive(item));
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -70,6 +70,12 @@
       position: relative;
     }
 
+    /* Foto Profile Transisi Tukar Gambar yang Halus */
+    #profile-base-img,
+    #profile-reveal-img {
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     .profile-spotlight-overlay {
       position: absolute;
       inset: 0;
@@ -85,6 +91,113 @@
     .profile-spotlight-container:hover .profile-spotlight-overlay,
     .profile-spotlight-container.is-active .profile-spotlight-overlay {
       opacity: 1;
+    }
+
+    /* Color Theme Transition on Click - Smooth Liquid Ripple & Element Color Transition */
+    *, *::before, *::after {
+      transition-property: color, background-color, border-color, outline-color, box-shadow, opacity;
+      transition-duration: 0.65s;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Except elements that have their own interactive transforms / animations */
+    .profile-glow-circle,
+    .profile-ambient-orbit,
+    #nav-indicator,
+    #proj-indicator,
+    .collage-card,
+    .folder-paper,
+    .reveal-item,
+    section[id] {
+      transition-property: transform, opacity, width, left, filter, -webkit-mask-image;
+    }
+
+    /* Theme Brown (Tone Coklat Baju profil2.png) */
+    html.theme-brown {
+      --color-pricing-blue: #7c4620;
+      --color-apple-blue: #7c4620;
+      --color-primary: #7c4620;
+      --color-primary-dark: #5a3216;
+    }
+
+    /* Hero Warm Amber/Brown Background Overlay (Smooth Cross-fade) */
+    #hero-brown-bg {
+      opacity: 0;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    html.theme-brown #hero-brown-bg {
+      opacity: 1;
+    }
+
+    /* Liquid Ripple Canvas / Container for Water Ripple Effect */
+    .ripple-circle {
+      position: absolute;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.85;
+      /* Phase 1: Menyebar keluar, Phase 2: Ada jeda/delay alami di tepi, Phase 3: Mengalir/menyerap kembali ke tengah */
+      animation: waterRippleWave 2.4s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes waterRippleWave {
+      0% {
+        transform: translate(-50%, -50%) scale(0.06);
+        opacity: 0.9;
+        filter: blur(4px);
+      }
+      /* Menyebar keluar ke tepi secara dinamis */
+      38% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.7;
+        filter: blur(14px);
+      }
+      /* Jeda / Delay di luar tepi seakan ombak mencapai batas tepian air */
+      58% {
+        transform: translate(-50%, -50%) scale(1.02);
+        opacity: 0.55;
+        filter: blur(20px);
+      }
+      /* Mengalir / menyusut kembali ke tengah dengan tenang */
+      100% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 0;
+        filter: blur(32px);
+      }
+    }
+
+    /* Aura Transisi Lembut (Cross-Fade via Separate Layer) */
+    .profile-glow-circle-brown,
+    .profile-ambient-orbit-brown {
+      opacity: 0;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html.theme-brown .profile-glow-circle-brown,
+    html.theme-brown .profile-ambient-orbit-brown {
+      opacity: 1;
+    }
+
+    html.theme-brown .profile-glow-circle-blue,
+    html.theme-brown .profile-ambient-orbit-blue {
+      opacity: 0;
+    }
+
+    .profile-glow-circle-blue,
+    .profile-ambient-orbit-blue {
+      opacity: 1;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html.theme-brown .custom-timeline-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(124, 70, 32, 0.6);
+    }
+
+    html.theme-brown .timeline-item.is-active .timeline-subtitle {
+      color: #7c4620;
     }
 
     /* Animated Organic Glowing Aura Circle behind Hero Profile */
@@ -122,11 +235,18 @@
       width: 290px;
       height: 290px;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0, 113, 227, 0.38) 0%, rgba(59, 130, 246, 0.22) 50%, rgba(219, 234, 254, 0.08) 75%, transparent 100%);
       filter: blur(28px);
       animation: pulseGlowAura 9s ease-in-out infinite;
       pointer-events: none;
       z-index: 0;
+    }
+
+    .profile-glow-circle-blue {
+      background: radial-gradient(circle, rgba(0, 113, 227, 0.38) 0%, rgba(59, 130, 246, 0.22) 50%, rgba(219, 234, 254, 0.08) 75%, transparent 100%);
+    }
+
+    .profile-glow-circle-brown {
+      background: radial-gradient(circle, rgba(124, 70, 32, 0.42) 0%, rgba(162, 98, 48, 0.26) 50%, rgba(247, 235, 222, 0.12) 75%, transparent 100%);
     }
 
     .profile-ambient-orbit {
@@ -137,11 +257,18 @@
       height: 320px;
       transform: translate(-50%, -50%);
       border-radius: 50%;
-      background: radial-gradient(circle at 40% 30%, rgba(96, 165, 250, 0.25), transparent 70%);
       filter: blur(40px);
       animation: rotateSoftRing 18s linear infinite;
       pointer-events: none;
       z-index: 0;
+    }
+
+    .profile-ambient-orbit-blue {
+      background: radial-gradient(circle at 40% 30%, rgba(96, 165, 250, 0.25), transparent 70%);
+    }
+
+    .profile-ambient-orbit-brown {
+      background: radial-gradient(circle at 40% 30%, rgba(184, 115, 60, 0.30), transparent 70%);
     }
 
     @media (min-width: 640px) {
@@ -254,7 +381,13 @@
 
     <!-- Hero Section: Background menyatu seamless dari paling atas layar tanpa strip putih header -->
     <section id="overview" class="relative bg-gradient-to-b from-blue-100/50 via-gallery-white to-gallery-white overflow-hidden pb-12 md:pb-20 pt-24 md:pt-32">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+      <!-- Warm Ambient Brown Gradient Layer (Cross-fades smoothly on theme toggle) -->
+      <div id="hero-brown-bg" class="absolute inset-0 bg-gradient-to-b from-[#f7ebd9]/90 via-[#faf5ee]/80 to-gallery-white z-0 pointer-events-none"></div>
+
+      <!-- Water Ripple Surface for Hero Click Interaction -->
+      <div id="hero-ripple-container" class="absolute inset-0 overflow-hidden pointer-events-none z-[1]"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         
         <!-- Layout Grid Hero (2 Kolom di HP, 3 Kolom di Laptop/Desktop) -->
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 items-center md:items-start relative z-10">
@@ -282,11 +415,13 @@
           </div>
 
           <!-- 2. Kanan di HP / Tengah di Desktop: Foto Profil dengan Efek Spotlight Sorot Profil 2 -->
-          <div id="hero-profile-container" class="profile-spotlight-container relative flex justify-center items-end h-[260px] sm:h-[340px] md:h-[460px] select-none">
+          <div id="hero-profile-container" class="profile-spotlight-container relative flex justify-center items-end h-[260px] sm:h-[340px] md:h-[460px] select-none cursor-pointer" title="Klik untuk ganti tone warna">
             
-            <!-- Animated Glowing Circular Ambient Aura (Bulat Hidup & Organik) -->
-            <div class="profile-glow-circle"></div>
-            <div class="profile-ambient-orbit"></div>
+            <!-- Animated Glowing Circular Ambient Aura (Bulat Hidup & Organik: Blue & Brown cross-faded layers) -->
+            <div class="profile-glow-circle profile-glow-circle-blue"></div>
+            <div class="profile-glow-circle profile-glow-circle-brown"></div>
+            <div class="profile-ambient-orbit profile-ambient-orbit-blue"></div>
+            <div class="profile-ambient-orbit profile-ambient-orbit-brown"></div>
             
             <!-- Base Image: Profil 1 -->
             <img id="profile-base-img" src="./img/profil1.png" alt="Esa Permana"
@@ -2227,6 +2362,94 @@
 
       heroProfileContainer.addEventListener("touchend", () => {
         heroProfileContainer.classList.remove("is-active");
+      });
+
+      // Toggle Tone Warna (Biru <-> Coklat) dengan Transisi Gelombang Air / Ripple yang Halus
+      const heroOverview = document.getElementById("overview");
+      const heroRippleContainer = document.getElementById("hero-ripple-container");
+
+      function triggerWaterRipple(originX, originY, isBrown) {
+        if (!heroOverview || !heroRippleContainer) return;
+
+        const overviewRect = heroOverview.getBoundingClientRect();
+        // Titik relatif terhadap overview
+        const relX = originX - overviewRect.left;
+        const relY = originY - overviewRect.top;
+
+        // Radius menyebar hingga melingkupi seluruh area hero
+        const maxDist = Math.hypot(
+          Math.max(relX, overviewRect.width - relX),
+          Math.max(relY, overviewRect.height - relY)
+        ) * 2.2;
+
+        // Buat 2 cincin riak (liquid water wave) yang berturut-turut untuk ilusi air realistis
+        const rippleColors = isBrown
+          ? [
+              "radial-gradient(circle, rgba(124, 70, 32, 0.40) 0%, rgba(196, 138, 92, 0.28) 45%, rgba(247, 235, 222, 0.08) 75%, transparent 100%)",
+              "radial-gradient(circle, rgba(162, 98, 48, 0.32) 0%, rgba(214, 160, 115, 0.20) 50%, transparent 80%)"
+            ]
+          : [
+              "radial-gradient(circle, rgba(0, 113, 227, 0.36) 0%, rgba(59, 130, 246, 0.25) 45%, rgba(219, 234, 254, 0.08) 75%, transparent 100%)",
+              "radial-gradient(circle, rgba(59, 130, 246, 0.30) 0%, rgba(147, 197, 253, 0.18) 50%, transparent 80%)"
+            ];
+
+        rippleColors.forEach((gradient, idx) => {
+          setTimeout(() => {
+            const ripple = document.createElement("div");
+            ripple.className = "ripple-circle";
+            ripple.style.left = `${relX}px`;
+            ripple.style.top = `${relY}px`;
+            ripple.style.width = `${maxDist}px`;
+            ripple.style.height = `${maxDist}px`;
+            ripple.style.background = gradient;
+            ripple.style.animationDuration = idx === 0 ? "2.6s" : "2.3s";
+
+            heroRippleContainer.appendChild(ripple);
+
+            ripple.addEventListener("animationend", () => {
+              ripple.remove();
+            });
+          }, idx * 160);
+        });
+      }
+
+      const profileBaseImg = document.getElementById("profile-base-img");
+      const profileRevealImg = document.getElementById("profile-reveal-img");
+
+      heroProfileContainer.addEventListener("click", (e) => {
+        const isTurningBrown = !document.documentElement.classList.contains("theme-brown");
+        document.documentElement.classList.toggle("theme-brown");
+
+        // Tukar foto profil utama & spotlight dengan efek transisi cross-fade lembut
+        if (profileBaseImg && profileRevealImg) {
+          profileBaseImg.style.opacity = "0";
+          profileRevealImg.style.opacity = "0";
+
+          setTimeout(() => {
+            if (isTurningBrown) {
+              // Mode Brown: Foto 2 (Baju Coklat) jadi base, Foto 1 jadi sorotan
+              profileBaseImg.src = "./img/profil2.png";
+              profileBaseImg.alt = "Esa Permana Alternate";
+              profileRevealImg.src = "./img/profil1.png";
+              profileRevealImg.alt = "Esa Permana";
+            } else {
+              // Mode Blue (Default): Foto 1 jadi base, Foto 2 jadi sorotan
+              profileBaseImg.src = "./img/profil1.png";
+              profileBaseImg.alt = "Esa Permana";
+              profileRevealImg.src = "./img/profil2.png";
+              profileRevealImg.alt = "Esa Permana Alternate";
+            }
+            profileBaseImg.style.opacity = "1";
+            profileRevealImg.style.opacity = "1";
+          }, 200);
+        }
+
+        // Pusat riak air menyebar dari titik tengah foto profil
+        const rect = heroProfileContainer.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height * 0.45;
+
+        triggerWaterRipple(centerX, centerY, isTurningBrown);
       });
     }
 

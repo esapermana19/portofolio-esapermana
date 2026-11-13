@@ -1243,20 +1243,21 @@
           <h3 class="text-3xl md:text-[40px] font-semibold text-ink tracking-tight mt-1">Built with precision.</h3>
         </div>
 
-        <!-- Dynamic Expandable Capsule: "More Projects" (Hover to Expand like Navbar) -->
+        <!-- Dynamic Expandable Capsule: "More Projects" (Click or Hover to Expand) -->
         <div class="flex justify-center mb-8 relative z-30 reveal-item reveal-delay-2">
           <div id="project-capsule-wrapper" class="relative group/capsule inline-block">
             
             <!-- Default Collapsed Black Capsule ("More Projects") -->
-            <div id="capsule-trigger"
-              class="flex items-center gap-2 px-5 py-2 rounded-full bg-ink text-white text-xs font-medium cursor-pointer shadow-md transition-all duration-300 group-hover/capsule:opacity-0 group-hover/capsule:pointer-events-none group-hover/capsule:scale-95 select-none">
+            <button type="button" id="capsule-trigger"
+              class="flex items-center gap-2 px-5 py-2 rounded-full bg-ink text-white text-xs font-medium cursor-pointer shadow-md transition-all duration-300 group-hover/capsule:opacity-0 group-hover/capsule:pointer-events-none group-hover/capsule:scale-95 select-none"
+              aria-label="Expand project switcher">
               <span>More Projects</span>
               <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover/capsule:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </div>
+            </button>
 
-            <!-- Expanded Floating Segmented Switcher (Muncul saat hover, style persis Navbar) -->
+            <!-- Expanded Floating Segmented Switcher (Muncul saat hover atau click) -->
             <div id="capsule-expanded"
               class="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-none opacity-0 scale-95 group-hover/capsule:pointer-events-auto group-hover/capsule:opacity-100 group-hover/capsule:scale-100 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]">
               <nav id="proj-pill-container"
@@ -1542,7 +1543,7 @@
           </p>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-3 reveal-item reveal-delay-2">
+        <div class="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-3 max-w-md md:max-w-none mx-auto reveal-item reveal-delay-2">
           <!-- Send an Email (Interactive Button: Blue / Brown with Hover Reveal) -->
           <a href="mailto:esapermanadev@gmail.com"
             class="interactive-hover-btn px-6 py-2.5 text-[13px] font-semibold shadow-sm">
@@ -1624,11 +1625,10 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gallery-white border-t border-hairline-silver py-10 text-[12px] text-slate">
+  <footer class="bg-gallery-white border-t border-hairline-silver pt-10 pb-28 md:py-10 text-[12px] text-slate">
     <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
       <p>&copy; 2026 Esa Permana. All rights reserved.</p>
       <div class="flex items-center space-x-6">
-        <a href="#overview" class="hover:text-ink transition">Back to top</a>
         <a href="https://github.com/esapermana19" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition">GitHub</a>
         <a href="https://www.linkedin.com/in/esa-permana-ab2373362" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition">LinkedIn</a>
         <a href="https://www.instagram.com/esaprmna" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition">Instagram</a>
@@ -1966,11 +1966,33 @@
         startAutoPlay();
       }
 
+      // Project Capsule Trigger (Click to open / toggle for mobile/touch)
+      const projectCapsuleWrapper = document.getElementById("project-capsule-wrapper");
+      const capsuleTrigger = document.getElementById("capsule-trigger");
+
+      if (capsuleTrigger && projectCapsuleWrapper) {
+        capsuleTrigger.addEventListener("click", (e) => {
+          e.stopPropagation();
+          projectCapsuleWrapper.classList.toggle("is-open");
+        });
+
+        // Close capsule when clicking outside
+        document.addEventListener("click", (e) => {
+          if (!projectCapsuleWrapper.contains(e.target)) {
+            projectCapsuleWrapper.classList.remove("is-open");
+          }
+        });
+      }
+
       // Event Listeners: Project Selector Switcher (di Bawah)
       projItems.forEach(item => {
-        item.addEventListener("click", () => {
+        item.addEventListener("click", (e) => {
+          e.stopPropagation();
           const idx = parseInt(item.getAttribute("data-proj-index"));
           switchProject(idx);
+          if (projectCapsuleWrapper) {
+            projectCapsuleWrapper.classList.remove("is-open");
+          }
         });
       });
 
@@ -2993,7 +3015,7 @@
 
   <!-- Floating Scroll-to-Top Button (Hanya muncul saat scroll berhenti) -->
   <button id="scroll-to-top-btn"
-    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-11 h-11 rounded-full bg-white/90 dark:bg-ink/90 text-ink dark:text-white backdrop-blur-xl border border-hairline-silver shadow-lg opacity-0 pointer-events-none scale-75 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110 active:scale-95 group"
+    class="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-50 flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full bg-white/95 dark:bg-ink/95 text-ink dark:text-white backdrop-blur-xl border border-hairline-silver shadow-lg opacity-0 pointer-events-none scale-75 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110 active:scale-95 group"
     aria-label="Scroll to top" title="Kembali ke atas">
     <svg class="w-5 h-5 transition-transform duration-200 group-hover:-translate-y-0.5 text-ink dark:text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>

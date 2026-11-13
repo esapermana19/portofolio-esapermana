@@ -728,7 +728,7 @@
             <!-- Inspira UI: Direction Aware Hover Card with Grayscale to Color Transition -->
             <div id="about-hover-card" class="direction-aware-card border border-hairline-silver bg-studio-mist h-80 md:h-[460px] shadow-sm select-none">
               <!-- Background Image: Grayscale by default, smoothly colored on hover -->
-              <img src="./img/about.jpeg" alt="About Esa" class="card-img" />
+              <img src="./img/about.jpeg" alt="About Esa" class="card-img" loading="lazy" decoding="async" />
 
               <!-- Direction-Aware Sliding Overlay Layer -->
               <div class="card-overlay text-white">
@@ -1244,12 +1244,12 @@
         </div>
 
         <!-- Dynamic Expandable Capsule: "More Projects" (Click or Hover to Expand) -->
-        <div class="flex justify-center mb-8 relative z-30 reveal-item reveal-delay-2">
-          <div id="project-capsule-wrapper" class="relative group/capsule inline-block">
+        <div class="flex justify-center mb-8 relative z-30 reveal-item reveal-delay-2 w-full px-2">
+          <div id="project-capsule-wrapper" class="relative group/capsule flex justify-center items-center">
             
             <!-- Default Collapsed Black Capsule ("More Projects") -->
             <button type="button" id="capsule-trigger"
-              class="flex items-center gap-2 px-5 py-2 rounded-full bg-ink text-white text-xs font-medium cursor-pointer shadow-md transition-all duration-300 group-hover/capsule:opacity-0 group-hover/capsule:pointer-events-none group-hover/capsule:scale-95 select-none"
+              class="flex items-center gap-2 px-5 py-2 rounded-full bg-ink text-white text-xs font-medium cursor-pointer shadow-md transition-all duration-300 group-hover/capsule:opacity-0 group-hover/capsule:pointer-events-none group-hover/capsule:scale-95 select-none touch-manipulation"
               aria-label="Expand project switcher">
               <span>More Projects</span>
               <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover/capsule:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1259,9 +1259,9 @@
 
             <!-- Expanded Floating Segmented Switcher (Muncul saat hover atau click) -->
             <div id="capsule-expanded"
-              class="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-none opacity-0 scale-95 group-hover/capsule:pointer-events-auto group-hover/capsule:opacity-100 group-hover/capsule:scale-100 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]">
+              class="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-none opacity-0 scale-95 group-hover/capsule:pointer-events-auto group-hover/capsule:opacity-100 group-hover/capsule:scale-100 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] w-max max-w-[94vw] sm:max-w-max flex justify-center">
               <nav id="proj-pill-container"
-                class="relative flex items-center p-1 bg-studio-mist/95 backdrop-blur-xl border border-hairline-silver rounded-full shadow-lg">
+                class="relative flex items-center p-1 bg-studio-mist/95 backdrop-blur-xl border border-hairline-silver rounded-full shadow-lg overflow-x-auto no-scrollbar max-w-full">
                 
                 <!-- Sliding Indicator Pill Proyek -->
                 <div id="proj-indicator"
@@ -1817,6 +1817,8 @@
           const img = document.createElement("img");
           img.src = doc.img;
           img.alt = doc.title;
+          img.loading = idx === 0 ? "eager" : "lazy";
+          img.decoding = "async";
           
           if (isSquareOrMobile) {
             // Gambar HP / square 1080x1080: tampil utuh 100% tanpa terpotong atas/bawah dengan padding vertikal yang proporsional
@@ -1973,7 +1975,14 @@
       if (capsuleTrigger && projectCapsuleWrapper) {
         capsuleTrigger.addEventListener("click", (e) => {
           e.stopPropagation();
-          projectCapsuleWrapper.classList.toggle("is-open");
+          const isOpen = projectCapsuleWrapper.classList.toggle("is-open");
+          if (isOpen) {
+            // Update sliding pill indicator with correct layout dimensions
+            requestAnimationFrame(() => {
+              const activeBtn = document.querySelector(`.proj-item[data-proj-index="${currentProjIndex}"]`);
+              if (activeBtn) moveProjIndicatorTo(activeBtn);
+            });
+          }
         });
 
         // Close capsule when clicking outside
@@ -2246,6 +2255,7 @@
       });
 
       dock.addEventListener("mousemove", (e) => {
+        if (window.matchMedia("(hover: none)").matches) return;
         const mouseX = e.clientX;
 
         icons.forEach((icon) => {

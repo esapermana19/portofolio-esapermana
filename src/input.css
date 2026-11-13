@@ -302,3 +302,18 @@
   pointer-events: auto;
   transform: translateX(-50%) scale(1);
 }
+
+#capsule-expanded {
+  max-width: 95vw;
+}
+
+#proj-pill-container {
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#proj-pill-container::-webkit-scrollbar {
+  display: none;
+}

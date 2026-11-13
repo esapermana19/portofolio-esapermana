@@ -607,17 +607,17 @@
               <!-- Ring 4 (620px) -->
               <div class="inspira-ripple-circle w-[620px] h-[620px] opacity-[0.19]" style="animation-delay: 1.2s;"></div>
               <!-- Ring 5 (740px) -->
-              <div class="inspira-ripple-circle w-[740px] h-[740px] opacity-[0.16]" style="animation-delay: 1.6s;"></div>
+              <div class="inspira-ripple-circle w-[740px] h-[740px] opacity-[0.16] hidden sm:block" style="animation-delay: 1.6s;"></div>
               <!-- Ring 6 (860px) -->
-              <div class="inspira-ripple-circle w-[860px] h-[860px] opacity-[0.13]" style="animation-delay: 2.0s;"></div>
+              <div class="inspira-ripple-circle w-[860px] h-[860px] opacity-[0.13] hidden sm:block" style="animation-delay: 2.0s;"></div>
               <!-- Ring 7 (980px) -->
-              <div class="inspira-ripple-circle w-[980px] h-[980px] opacity-[0.10]" style="animation-delay: 2.4s;"></div>
+              <div class="inspira-ripple-circle w-[980px] h-[980px] opacity-[0.10] hidden md:block" style="animation-delay: 2.4s;"></div>
               <!-- Ring 8 (1100px) -->
-              <div class="inspira-ripple-circle w-[1100px] h-[1100px] opacity-[0.08]" style="animation-delay: 2.8s;"></div>
+              <div class="inspira-ripple-circle w-[1100px] h-[1100px] opacity-[0.08] hidden md:block" style="animation-delay: 2.8s;"></div>
               <!-- Ring 9 (1240px) -->
-              <div class="inspira-ripple-circle w-[1240px] h-[1240px] opacity-[0.06]" style="animation-delay: 3.2s;"></div>
+              <div class="inspira-ripple-circle w-[1240px] h-[1240px] opacity-[0.06] hidden lg:block" style="animation-delay: 3.2s;"></div>
               <!-- Ring 10 (1380px) -->
-              <div class="inspira-ripple-circle w-[1380px] h-[1380px] opacity-[0.04]" style="animation-delay: 3.6s;"></div>
+              <div class="inspira-ripple-circle w-[1380px] h-[1380px] opacity-[0.04] hidden lg:block" style="animation-delay: 3.6s;"></div>
             </div>
 
             <!-- Animated Glowing Circular Ambient Aura (Bulat Hidup & Organik: Blue & Brown cross-faded layers) -->
@@ -1265,7 +1265,8 @@
                 
                 <!-- Sliding Indicator Pill Proyek -->
                 <div id="proj-indicator"
-                  class="absolute top-1 bottom-1 bg-ink rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none"></div>
+                  class="absolute top-1 bottom-1 bg-ink rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none"
+                  style="left: 6px; width: 92px;"></div>
 
                 <button data-proj-index="0"
                   class="proj-item relative z-10 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium tracking-[-0.12px] transition-colors duration-200 text-white whitespace-nowrap select-none">
@@ -1765,8 +1766,11 @@
         const offsetLeft = target.offsetLeft;
         const width = target.offsetWidth;
 
-        projIndicator.style.left = `${offsetLeft}px`;
-        projIndicator.style.width = `${width}px`;
+        if (width > 0) {
+          projIndicator.style.left = `${offsetLeft}px`;
+          projIndicator.style.width = `${width}px`;
+          projIndicator.style.opacity = "1";
+        }
 
         projItems.forEach(item => {
           if (item === target) {
@@ -1780,7 +1784,7 @@
 
         // Ensure active item is comfortably centered inside the scrollable container on mobile
         const container = document.getElementById("proj-pill-container");
-        if (container && container.scrollWidth > container.clientWidth) {
+        if (container && container.scrollWidth > container.clientWidth && width > 0) {
           const scrollTarget = offsetLeft - (container.clientWidth / 2) + (width / 2);
           container.scrollTo({ left: scrollTarget, behavior: "smooth" });
         }
@@ -1921,12 +1925,16 @@
         updateDeckTransform();
       }
 
-      // Auto-play Otomatis Berpindah Gambar
+      // Auto-play Otomatis Berpindah Gambar (Smart: Hanya berjalan saat Portfolio terlihat di layar)
+      let isPortfolioInView = false;
+      const portfolioSection = document.getElementById("portfolio");
+
       function startAutoPlay() {
         stopAutoPlay();
+        if (!isPortfolioInView) return;
         autoPlayTimer = setInterval(() => {
           goToSlide(currentDocIndex + 1);
-        }, 2500); // Berpindah otomatis setiap 2.5 detik
+        }, 2800);
       }
 
       function stopAutoPlay() {
@@ -1938,13 +1946,31 @@
 
       function resetAutoPlay() {
         stopAutoPlay();
-        startAutoPlay();
+        if (isPortfolioInView) startAutoPlay();
+      }
+
+      if (portfolioSection && "IntersectionObserver" in window) {
+        const portfolioObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            isPortfolioInView = entry.isIntersecting;
+            if (isPortfolioInView) {
+              startAutoPlay();
+            } else {
+              stopAutoPlay();
+            }
+          });
+        }, { threshold: 0.15 });
+        portfolioObserver.observe(portfolioSection);
+      } else {
+        isPortfolioInView = true;
       }
 
       // Pause autoplay saat mouse diarahkan ke area deck, resume saat leave
       const collageViewport = document.getElementById("collage-viewport");
       collageViewport?.addEventListener("mouseenter", stopAutoPlay);
-      collageViewport?.addEventListener("mouseleave", startAutoPlay);
+      collageViewport?.addEventListener("mouseleave", () => {
+        if (isPortfolioInView) startAutoPlay();
+      });
 
       // Klik Zona Kiri / Kanan (Tanpa Button) untuk Geser Gambar
       clickZoneLeft?.addEventListener("click", (e) => {
@@ -1982,26 +2008,32 @@
 
         // Rebuild 3D Collage Deck untuk project yang dipilih & mulai auto-play
         buildCollageDeck();
-        startAutoPlay();
+        if (isPortfolioInView) {
+          startAutoPlay();
+        }
       }
 
       // Project Capsule Trigger (Click to open / toggle for mobile/touch)
       const projectCapsuleWrapper = document.getElementById("project-capsule-wrapper");
       const capsuleTrigger = document.getElementById("capsule-trigger");
 
+      function syncProjIndicator() {
+        const activeBtn = document.querySelector(`.proj-item[data-proj-index="${currentProjIndex}"]`);
+        if (activeBtn) moveProjIndicatorTo(activeBtn);
+      }
+
       if (capsuleTrigger && projectCapsuleWrapper) {
         capsuleTrigger.addEventListener("click", (e) => {
           e.stopPropagation();
           const isOpen = projectCapsuleWrapper.classList.toggle("is-open");
           if (isOpen) {
-            // Recalculate indicator position after layout transition
-            requestAnimationFrame(() => {
-              setTimeout(() => {
-                const activeBtn = document.querySelector(`.proj-item[data-proj-index="${currentProjIndex}"]`);
-                if (activeBtn) moveProjIndicatorTo(activeBtn);
-              }, 50);
-            });
+            syncProjIndicator();
+            requestAnimationFrame(syncProjIndicator);
           }
+        });
+
+        projectCapsuleWrapper.addEventListener("mouseenter", () => {
+          syncProjIndicator();
         });
 
         // Close capsule when clicking outside
@@ -2018,9 +2050,6 @@
           e.stopPropagation();
           const idx = parseInt(item.getAttribute("data-proj-index"));
           switchProject(idx);
-          if (projectCapsuleWrapper) {
-            projectCapsuleWrapper.classList.remove("is-open");
-          }
         });
       });
 
@@ -2043,7 +2072,7 @@
         } else if (touchEndX - touchStartX > 35) {
           goToSlide(currentDocIndex - 1); // Geser ke kanan -> prev
         }
-        startAutoPlay();
+        if (isPortfolioInView) startAutoPlay();
       }, { passive: true });
 
       // Keyboard Nav
@@ -2064,38 +2093,11 @@
 
       // Inisialisasi awal
       requestAnimationFrame(() => {
-        const firstProjBtn = document.querySelector('.proj-item[data-proj-index="0"]');
-        if (firstProjBtn) moveProjIndicatorTo(firstProjBtn);
+        syncProjIndicator();
       });
       switchProject(0);
 
       
-    // Scroll To Top Button Logic: Tampil saat user scroll berhenti & scrollY > 300
-    const scrollToTopBtn = document.getElementById("scroll-to-top-btn");
-    let scrollStopTimer = null;
-
-    window.addEventListener("scroll", () => {
-      if (!scrollToTopBtn) return;
-
-      // Sembunyikan saat sedang aktif scroll
-      scrollToTopBtn.classList.remove("opacity-100", "pointer-events-auto", "scale-100");
-      scrollToTopBtn.classList.add("opacity-0", "pointer-events-none", "scale-75");
-
-      clearTimeout(scrollStopTimer);
-
-      // Hanya muncul jika scroll berhenti dan posisi scroll sudah melewati hero section (> 300px)
-      if (window.scrollY > 300) {
-        scrollStopTimer = setTimeout(() => {
-          scrollToTopBtn.classList.remove("opacity-0", "pointer-events-none", "scale-75");
-          scrollToTopBtn.classList.add("opacity-100", "pointer-events-auto", "scale-100");
-        }, 250); // Muncul 250ms setelah scroll berhenti
-      }
-    }, { passive: true });
-
-    scrollToTopBtn?.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
       // 2. Logic Header Floating Navigation & ScrollSpy
       const indicator = document.getElementById("nav-indicator");
       const navItems = document.querySelectorAll(".nav-item");
@@ -2178,37 +2180,89 @@
         }
       }
 
-      window.addEventListener("scroll", () => {
+      // Cache section geometry to eliminate Forced Reflow / Layout Thrashing during scroll
+      let sectionCache = [];
+      let currentActiveNavId = "";
+
+      function updateSectionCache() {
+        sectionCache = Array.from(sections).map(sec => ({
+          id: sec.getAttribute("id"),
+          top: sec.offsetTop,
+          height: sec.offsetHeight
+        }));
+      }
+      updateSectionCache();
+
+      // Scroll To Top Button Logic
+      const scrollToTopBtn = document.getElementById("scroll-to-top-btn");
+      let scrollStopTimer = null;
+
+      scrollToTopBtn?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Unified & Throttled Scroll Listener (Single RAF Loop - Smooth 60/120fps)
+      let isScrollTicking = false;
+      window.lastScrollY = window.scrollY;
+
+      function onUnifiedScroll() {
         const scrollY = window.scrollY;
+        window.lastScrollY = scrollY;
+
+        // 1. Update Header Morph State (Desktop Nav)
         updateMorphState(scrollY > 60);
 
-        if (!isLockedByClick) {
+        // 2. ScrollSpy (Active Section Nav - Cached)
+        if (!isLockedByClick && sectionCache.length > 0) {
           const scrollPosition = scrollY + 220;
-          sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute("id");
-
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-              const correspondingNav = document.querySelector(`.nav-item[data-nav="${sectionId}"]`);
-              if (correspondingNav) {
-                moveIndicatorTo(correspondingNav);
+          for (let i = 0; i < sectionCache.length; i++) {
+            const sec = sectionCache[i];
+            if (scrollPosition >= sec.top && scrollPosition < sec.top + sec.height) {
+              if (sec.id !== currentActiveNavId) {
+                currentActiveNavId = sec.id;
+                const correspondingNav = document.querySelector(`.nav-item[data-nav="${sec.id}"]`);
+                if (correspondingNav) {
+                  moveIndicatorTo(correspondingNav);
+                }
               }
+              break;
             }
-          });
+          }
+        }
+
+        // 3. Scroll To Top Button
+        if (scrollToTopBtn) {
+          if (!scrollToTopBtn.classList.contains("opacity-0")) {
+            scrollToTopBtn.classList.remove("opacity-100", "pointer-events-auto", "scale-100");
+            scrollToTopBtn.classList.add("opacity-0", "pointer-events-none", "scale-75");
+          }
+          clearTimeout(scrollStopTimer);
+          if (scrollY > 300) {
+            scrollStopTimer = setTimeout(() => {
+              scrollToTopBtn.classList.remove("opacity-0", "pointer-events-none", "scale-75");
+              scrollToTopBtn.classList.add("opacity-100", "pointer-events-auto", "scale-100");
+            }, 200);
+          }
+        }
+
+        isScrollTicking = false;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (!isScrollTicking) {
+          requestAnimationFrame(onUnifiedScroll);
+          isScrollTicking = true;
         }
       }, { passive: true });
 
       window.addEventListener("resize", () => {
+        updateSectionCache();
         const currentActive = document.querySelector(".nav-item.text-white") || navItems[0];
         if (currentActive) {
           moveIndicatorTo(currentActive);
         }
-        const activeProj = document.querySelector('.proj-item.text-white');
-        if (activeProj) {
-          moveProjIndicatorTo(activeProj);
-        }
-      });
+        syncProjIndicator();
+      }, { passive: true });
 
       const menuBtn = document.getElementById("menu-btn");
       const mobileMenu = document.getElementById("mobile-menu");
@@ -2500,8 +2554,12 @@
       updateCertDeckTransform();
     }
 
+    let isCertInView = false;
+    const certSection = document.getElementById("certificates");
+
     function startCertAutoPlay() {
       stopCertAutoPlay();
+      if (!isFolderOpen || !isCertInView) return;
       certAutoPlayTimer = setInterval(() => {
         goToCertSlide(currentCertIndex + 1);
       }, 3000);
@@ -2516,9 +2574,23 @@
 
     function resetCertAutoPlay() {
       stopCertAutoPlay();
-      if (isFolderOpen) {
+      if (isFolderOpen && isCertInView) {
         startCertAutoPlay();
       }
+    }
+
+    if (certSection && "IntersectionObserver" in window) {
+      const certObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isCertInView = entry.isIntersecting;
+          if (isCertInView && isFolderOpen) {
+            startCertAutoPlay();
+          } else {
+            stopCertAutoPlay();
+          }
+        });
+      }, { threshold: 0.15 });
+      certObserver.observe(certSection);
     }
 
     // Build initial deck once
@@ -2562,7 +2634,7 @@
           if (folderCountNum) folderCountNum.textContent = "0";
           if (folderToggleIndicator) folderToggleIndicator.classList.add("rotate-90", "bg-pricing-blue/30");
 
-          startCertAutoPlay();
+          if (isCertInView) startCertAutoPlay();
           setTimeout(() => {
             isAnimating = false;
           }, 700);
@@ -2629,14 +2701,13 @@
     // Pause on hover
     certCollageViewport?.addEventListener("mouseenter", stopCertAutoPlay);
     certCollageViewport?.addEventListener("mouseleave", () => {
-      if (isFolderOpen) startCertAutoPlay();
+      if (isFolderOpen && isCertInView) startCertAutoPlay();
     });
 
     // ==========================================
     // Section Scroll In (Slide Up) & Scroll Out (Slide Down) Animation
     // ==========================================
     const animatedSections = document.querySelectorAll("section[id]");
-    let lastScrollY = window.scrollY;
 
     const sectionObserver = new IntersectionObserver(
       (entries) => {
@@ -2685,10 +2756,6 @@
       sectionObserver.observe(sec);
     });
 
-    window.addEventListener("scroll", () => {
-      lastScrollY = window.scrollY;
-    }, { passive: true });
-
     // ==========================================
     // Hero Profile Interactive Spotlight (Torch Reveal Profil 2)
     // ==========================================
@@ -2708,22 +2775,31 @@
         updateSpotlight(e.clientX, e.clientY);
       });
 
-      // Support Touch untuk Layar HP / Mobile / Tablet
+      // Support Touch untuk Layar HP / Mobile / Tablet (dengan caching rect agar bebas layout thrashing)
+      let cachedHeroRect = null;
       heroProfileContainer.addEventListener("touchstart", (e) => {
         heroProfileContainer.classList.add("is-active");
-        if (e.touches && e.touches[0]) {
-          updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
+        cachedHeroRect = heroProfileContainer.getBoundingClientRect();
+        if (e.touches && e.touches[0] && cachedHeroRect) {
+          const x = e.touches[0].clientX - cachedHeroRect.left;
+          const y = e.touches[0].clientY - cachedHeroRect.top;
+          heroProfileContainer.style.setProperty("--mouse-x", `${x}px`);
+          heroProfileContainer.style.setProperty("--mouse-y", `${y}px`);
         }
       }, { passive: true });
 
       heroProfileContainer.addEventListener("touchmove", (e) => {
-        if (e.touches && e.touches[0]) {
-          updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
+        if (e.touches && e.touches[0] && cachedHeroRect) {
+          const x = e.touches[0].clientX - cachedHeroRect.left;
+          const y = e.touches[0].clientY - cachedHeroRect.top;
+          heroProfileContainer.style.setProperty("--mouse-x", `${x}px`);
+          heroProfileContainer.style.setProperty("--mouse-y", `${y}px`);
         }
       }, { passive: true });
 
       heroProfileContainer.addEventListener("touchend", () => {
         heroProfileContainer.classList.remove("is-active");
+        cachedHeroRect = null;
       });
 
       // Toggle Tone Warna (Biru <-> Coklat) dengan Transisi Gelombang Air / Ripple yang Halus
@@ -2889,47 +2965,56 @@
     const textHoverSvg = document.getElementById("text-hover-svg");
     const textHoverGradient = document.getElementById("textHoverGradient");
 
-    if (textHoverSvg && textHoverGradient) {
+    if (textHoverSvg && textHoverGradient && !window.matchMedia("(hover: none)").matches) {
       let isHoveringText = false;
       let targetX = 500, targetY = 120;
       let currentX = 500, currentY = 120;
+      let hoverRafId = null;
 
-      // Hanya aktif saat kursor berada langsung di area teks SVG
-      textHoverSvg.addEventListener("mouseenter", () => {
-        isHoveringText = true;
-      });
-
-      textHoverSvg.addEventListener("mousemove", (e) => {
-        isHoveringText = true;
-        const rect = textHoverSvg.getBoundingClientRect();
-        // Konversi koordinat mouse kursor ke sistem koordinat viewBox 1000x240
-        targetX = ((e.clientX - rect.left) / rect.width) * 1000;
-        targetY = ((e.clientY - rect.top) / rect.height) * 240;
-      });
-
-      textHoverSvg.addEventListener("mouseleave", () => {
-        isHoveringText = false;
-      });
-
-      // Smooth lerp (linear interpolation) spotlight follow
-      function animateTextHover() {
+      function stepTextHover() {
         if (isHoveringText) {
           currentX += (targetX - currentX) * 0.18;
           currentY += (targetY - currentY) * 0.18;
           textHoverGradient.setAttribute("cx", currentX.toFixed(1));
           textHoverGradient.setAttribute("cy", currentY.toFixed(1));
-          // Radius spotlight fokus (140) pas di sekitar kursor saat menyentuh teks
           textHoverGradient.setAttribute("r", "140");
+          hoverRafId = requestAnimationFrame(stepTextHover);
         } else {
-          // Ketika kursor keluar dari teks, hilangkan spotlight secara halus ke 0
+          // Ketika kursor keluar dari teks, hilangkan spotlight secara halus ke 0 lalu stop RAF loop
           const currentR = parseFloat(textHoverGradient.getAttribute("r") || "0");
           if (currentR > 0.5) {
             textHoverGradient.setAttribute("r", (currentR * 0.8).toFixed(1));
+            hoverRafId = requestAnimationFrame(stepTextHover);
+          } else {
+            textHoverGradient.setAttribute("r", "0");
+            hoverRafId = null; // Hentikan loop RAF sepenuhnya saat diam
           }
         }
-        requestAnimationFrame(animateTextHover);
       }
-      animateTextHover();
+
+      function startTextHoverLoop() {
+        if (!hoverRafId) {
+          hoverRafId = requestAnimationFrame(stepTextHover);
+        }
+      }
+
+      // Hanya aktif saat kursor berada langsung di area teks SVG
+      textHoverSvg.addEventListener("mouseenter", () => {
+        isHoveringText = true;
+        startTextHoverLoop();
+      });
+
+      textHoverSvg.addEventListener("mousemove", (e) => {
+        isHoveringText = true;
+        const rect = textHoverSvg.getBoundingClientRect();
+        targetX = ((e.clientX - rect.left) / rect.width) * 1000;
+        targetY = ((e.clientY - rect.top) / rect.height) * 240;
+        startTextHoverLoop();
+      });
+
+      textHoverSvg.addEventListener("mouseleave", () => {
+        isHoveringText = false;
+      });
     }
 
     // 2. Inspira UI: Typewriter Text Effect ("I'M ESA" - Mengetik per huruf lalu menghapus per huruf, berulang terus menerus)

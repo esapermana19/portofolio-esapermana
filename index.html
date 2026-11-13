@@ -1245,27 +1245,27 @@
 
         <!-- Dynamic Expandable Capsule: "More Projects" (Click or Hover to Expand) -->
         <div class="flex justify-center mb-8 relative z-30 reveal-item reveal-delay-2 w-full px-2">
-          <div id="project-capsule-wrapper" class="relative group/capsule flex justify-center items-center">
+          <div id="project-capsule-wrapper" class="relative group/capsule flex justify-center items-center w-full">
             
             <!-- Default Collapsed Black Capsule ("More Projects") -->
             <button type="button" id="capsule-trigger"
-              class="flex items-center gap-2 px-5 py-2 rounded-full bg-ink text-white text-xs font-medium cursor-pointer shadow-md transition-all duration-300 group-hover/capsule:opacity-0 group-hover/capsule:pointer-events-none group-hover/capsule:scale-95 select-none touch-manipulation"
+              class="flex items-center gap-2 px-5 py-2 rounded-full bg-ink text-white text-xs font-medium cursor-pointer shadow-md select-none touch-manipulation mx-auto"
               aria-label="Expand project switcher">
               <span>More Projects</span>
-              <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover/capsule:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
 
-            <!-- Expanded Floating Segmented Switcher (Muncul saat hover atau click) -->
+            <!-- Expanded Floating Segmented Switcher (Muncul di tengah sempurna saat di-klik atau hover) -->
             <div id="capsule-expanded"
-              class="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-none opacity-0 scale-95 group-hover/capsule:pointer-events-auto group-hover/capsule:opacity-100 group-hover/capsule:scale-100 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] w-max max-w-[94vw] sm:max-w-max flex justify-center">
+              class="w-full flex justify-center items-center">
               <nav id="proj-pill-container"
                 class="relative flex items-center p-1 bg-studio-mist/95 backdrop-blur-xl border border-hairline-silver rounded-full shadow-lg overflow-x-auto no-scrollbar max-w-full">
                 
                 <!-- Sliding Indicator Pill Proyek -->
                 <div id="proj-indicator"
-                  class="absolute top-1 bottom-1 bg-ink rounded-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none"></div>
+                  class="absolute top-1 bottom-1 bg-ink rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none"></div>
 
                 <button data-proj-index="0"
                   class="proj-item relative z-10 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-xs font-medium tracking-[-0.12px] transition-colors duration-200 text-white whitespace-nowrap select-none">
@@ -1777,6 +1777,13 @@
             item.classList.add("text-slate", "hover:text-ink");
           }
         });
+
+        // Ensure active item is comfortably centered inside the scrollable container on mobile
+        const container = document.getElementById("proj-pill-container");
+        if (container && container.scrollWidth > container.clientWidth) {
+          const scrollTarget = offsetLeft - (container.clientWidth / 2) + (width / 2);
+          container.scrollTo({ left: scrollTarget, behavior: "smooth" });
+        }
       }
 
       // Render Dots Indicator
@@ -1849,8 +1856,18 @@
         const total = cards.length;
         if (total === 0) return;
 
+        const isMobileScreen = window.innerWidth < 768;
+        const spreadStep = isMobileScreen ? 18 : 34;
+        const maxVisible = isMobileScreen ? 2 : 4; // Render only nearest cards for high 60fps performance on mobile
+
         cards.forEach((card, i) => {
           let diff = i - currentDocIndex;
+
+          if (Math.abs(diff) > maxVisible) {
+            card.style.display = "none";
+            return;
+          }
+          card.style.display = "flex";
 
           if (diff === 0) {
             // KARTU UTAMA (CENTER / FOCUS)
@@ -1860,26 +1877,26 @@
             card.style.filter = "none";
           } else if (diff < 0) {
             // KARTU DI SEBELAH KIRI (FAN DECK LEFT)
-            const factor = Math.max(diff, -5);
-            const xOffset = factor * 34; // px bergeser ke kiri
-            const rotateAngle = factor * 4.5;
-            const scale = Math.max(0.78, 1 + factor * 0.05);
+            const factor = Math.max(diff, -maxVisible);
+            const xOffset = factor * spreadStep;
+            const rotateAngle = factor * (isMobileScreen ? 2.5 : 4.5);
+            const scale = Math.max(0.82, 1 + factor * 0.04);
 
-            card.style.transform = `translate3d(${xOffset}px, 0, ${diff * 18}px) rotateY(${rotateAngle}deg) scale(${scale})`;
+            card.style.transform = `translate3d(${xOffset}px, 0, ${diff * 14}px) rotateY(${rotateAngle}deg) scale(${scale})`;
             card.style.zIndex = `${25 + diff}`;
-            card.style.opacity = Math.max(0.18, 1 + diff * 0.18).toString();
-            card.style.filter = "brightness(0.9)";
+            card.style.opacity = Math.max(0.2, 1 + diff * 0.22).toString();
+            card.style.filter = "brightness(0.92)";
           } else {
             // KARTU DI SEBELAH KANAN (FAN DECK RIGHT)
-            const factor = Math.min(diff, 5);
-            const xOffset = factor * 34; // px bergeser ke kanan
-            const rotateAngle = factor * -4.5;
-            const scale = Math.max(0.78, 1 - factor * 0.05);
+            const factor = Math.min(diff, maxVisible);
+            const xOffset = factor * spreadStep;
+            const rotateAngle = factor * -(isMobileScreen ? 2.5 : 4.5);
+            const scale = Math.max(0.82, 1 - factor * 0.04);
 
-            card.style.transform = `translate3d(${xOffset}px, 0, ${-diff * 18}px) rotateY(${rotateAngle}deg) scale(${scale})`;
+            card.style.transform = `translate3d(${xOffset}px, 0, ${-diff * 14}px) rotateY(${rotateAngle}deg) scale(${scale})`;
             card.style.zIndex = `${25 - diff}`;
-            card.style.opacity = Math.max(0.18, 1 - diff * 0.18).toString();
-            card.style.filter = "brightness(0.9)";
+            card.style.opacity = Math.max(0.2, 1 - diff * 0.22).toString();
+            card.style.filter = "brightness(0.92)";
           }
         });
 
@@ -1977,10 +1994,12 @@
           e.stopPropagation();
           const isOpen = projectCapsuleWrapper.classList.toggle("is-open");
           if (isOpen) {
-            // Update sliding pill indicator with correct layout dimensions
+            // Recalculate indicator position after layout transition
             requestAnimationFrame(() => {
-              const activeBtn = document.querySelector(`.proj-item[data-proj-index="${currentProjIndex}"]`);
-              if (activeBtn) moveProjIndicatorTo(activeBtn);
+              setTimeout(() => {
+                const activeBtn = document.querySelector(`.proj-item[data-proj-index="${currentProjIndex}"]`);
+                if (activeBtn) moveProjIndicatorTo(activeBtn);
+              }, 50);
             });
           }
         });

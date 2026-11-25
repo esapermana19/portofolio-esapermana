@@ -83,10 +83,12 @@
       position: relative;
     }
 
-    /* Foto Profile Transisi Tukar Gambar yang Halus */
+    /* Foto Profile Transisi Tukar Gambar yang Halus + Bottom Seamless Fade */
     #profile-base-img,
     #profile-reveal-img {
       transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
     }
 
     .profile-spotlight-overlay {

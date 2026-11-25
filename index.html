@@ -5,17 +5,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Esa Permana — Web & Mobile Developer</title>
+  <link rel="preload" href="./src/output.css" as="style" />
   <link rel="stylesheet" href="./src/output.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=optional" rel="stylesheet" />
   <style>
     /* Section Scroll In / Out Animation Styles (Ultra Smooth & Cinematic) */
     section[id] {
       opacity: 0;
       transform: translateY(40px);
-      transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
+      transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (max-width: 767px) {
+      section[id] {
+        transform: translateY(28px);
+        transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      }
     }
 
     section[id].section-visible {
@@ -27,15 +34,21 @@
     section[id].section-exit-bottom {
       opacity: 0;
       transform: translateY(40px);
-      transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Staggered Children Reveal (Per-container/div animation inside sections) */
     .reveal-item {
       opacity: 0;
-      transform: translateY(48px);
-      transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1), transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
+      transform: translateY(36px);
+      transition: opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1), transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (max-width: 767px) {
+      .reveal-item {
+        transform: translateY(24px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      }
     }
 
     /* Saat section aktif visible, anak-anak reveal-item muncul bertahap */
@@ -93,25 +106,22 @@
       opacity: 1;
     }
 
-    /* Color Theme Transition on Click - Smooth Liquid Ripple & Element Color Transition */
-    *, *::before, *::after {
+    /* Color Theme Transition on Click - Aktif HANYA saat theme sedang berubah agar tidak membebani seluruh DOM */
+    html.theme-transitioning,
+    html.theme-transitioning *,
+    html.theme-transitioning *::before,
+    html.theme-transitioning *::after {
       transition-property: color, background-color, border-color, outline-color, box-shadow, opacity;
       transition-duration: 0.65s;
       transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Except elements that have their own interactive transforms / animations */
-    .profile-glow-circle,
-    .profile-ambient-orbit,
-    #nav-indicator,
-    #proj-indicator,
-    .collage-card,
-    .folder-paper,
-    .reveal-item,
-    .interactive-hover-btn,
-    .interactive-hover-btn *,
-    section[id] {
-      transition-property: transform, opacity, width, left, filter, -webkit-mask-image, color, background-color, border-color, box-shadow;
+    /* Pause animasi ambient Hero saat tidak terlihat di viewport untuk hemat CPU/GPU HP */
+    #overview.hero-offscreen .inspira-ripple-circle,
+    #overview.hero-offscreen .profile-glow-circle,
+    #overview.hero-offscreen .profile-ambient-orbit,
+    #overview.hero-offscreen .typewriter-cursor {
+      animation-play-state: paused !important;
     }
 
     /* Theme Brown (Tone Coklat Baju profil2.png) */
@@ -205,7 +215,6 @@
       border: 1px solid var(--color-pricing-blue);
       background-color: transparent;
       animation: inspiraRippleWave 8s ease-in-out infinite;
-      will-change: transform, opacity;
       pointer-events: none;
     }
 
@@ -249,7 +258,6 @@
       filter: grayscale(100%);
       transform: scale(1);
       transition: filter 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: filter, transform;
     }
 
     .direction-aware-card.is-hovered .card-img {
@@ -269,7 +277,6 @@
       padding: 1.75rem;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 50%, transparent 100%);
       transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform, opacity;
       transform: translateY(100%);
       opacity: 0;
     }
@@ -321,10 +328,18 @@
       transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
                   filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
                   transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, filter, transform;
     }
 
-    .reveal-char.is-visible {
+    @media (max-width: 767px) {
+      .reveal-char {
+        filter: none;
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+    }
+
+    .reveal-char.is-visible,
+    #hero-bio-reveal.is-visible .reveal-char {
       opacity: 1;
       filter: blur(0px);
       transform: translateY(0);
@@ -1815,6 +1830,8 @@
         const project = projectsData[currentProjIndex];
         const docs = project.documents;
 
+        const fragment = document.createDocumentFragment();
+
         docs.forEach((doc, idx) => {
           // Deteksi apakah gambar persegi (LabaPlus atau ASUP Ciamis user1-user6)
           const isSquareOrMobile = doc.img.includes('/labaplus/') || doc.img.includes('/asupciamis/user');
@@ -1848,8 +1865,10 @@
             resetAutoPlay();
           });
 
-          collageDeck.appendChild(cardWrapper);
+          fragment.appendChild(cardWrapper);
         });
+
+        collageDeck.appendChild(fragment);
 
         updateDeckTransform();
       }
@@ -2030,10 +2049,6 @@
             syncProjIndicator();
             requestAnimationFrame(syncProjIndicator);
           }
-        });
-
-        projectCapsuleWrapper.addEventListener("mouseenter", () => {
-          syncProjIndicator();
         });
 
         // Close capsule when clicking outside
@@ -2449,6 +2464,7 @@
       if (!certCollageDeck) return;
       certCollageDeck.innerHTML = "";
 
+      const certFragment = document.createDocumentFragment();
       certsData.forEach((cert, idx) => {
         const cardWrapper = document.createElement("div");
         cardWrapper.className = "cert-collage-card absolute inset-0 w-full h-full rounded-[20px] sm:rounded-[26px] overflow-hidden cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xl bg-white/90 border border-hairline-silver/70 flex items-center justify-center p-2 sm:p-3 select-none";
@@ -2457,6 +2473,8 @@
         const img = document.createElement("img");
         img.src = cert.img;
         img.alt = cert.title;
+        img.loading = idx === 0 ? "eager" : "lazy";
+        img.decoding = "async";
         // object-contain agar gambar sertifikat tampil 100% utuh tanpa terpotong
         img.className = "max-w-full max-h-full w-auto h-auto object-contain rounded-[14px] sm:rounded-[18px] select-none transition-transform duration-500 drop-shadow-sm";
 
@@ -2468,8 +2486,9 @@
           resetCertAutoPlay();
         });
 
-        certCollageDeck.appendChild(cardWrapper);
+        certFragment.appendChild(cardWrapper);
       });
+      certCollageDeck.appendChild(certFragment);
 
       renderCertDots();
       updateCertDeckTransform();
@@ -2875,7 +2894,11 @@
 
       heroProfileContainer.addEventListener("click", (e) => {
         const isTurningBrown = !document.documentElement.classList.contains("theme-brown");
+        document.documentElement.classList.add("theme-transitioning");
         document.documentElement.classList.toggle("theme-brown");
+        setTimeout(() => {
+          document.documentElement.classList.remove("theme-transitioning");
+        }, 700);
 
         // Picu efek ripple menyebar keluar dari foto profil
         triggerRippleBurst();
@@ -3017,14 +3040,25 @@
       });
     }
 
+    // Smart Hero Visibility Observer: Pause animasi CSS & typewriter saat Hero di luar viewport
+    let isHeroInView = true;
+    const overviewSection = document.getElementById("overview");
+    let heroNameTimer = null;
+    let roleTimer = null;
+
     // 2. Inspira UI: Typewriter Text Effect ("I'M ESA" - Mengetik per huruf lalu menghapus per huruf, berulang terus menerus)
     const typewriterHeroName = document.getElementById("typewriter-hero-name");
+    let startHeroNameTypewriter = null;
     if (typewriterHeroName) {
       const heroNameText = "I'M ESA";
       let nameLength = 0;
       let isNameDeleting = false;
 
       function loopHeroNameTypewriter() {
+        if (!isHeroInView) {
+          heroNameTimer = null;
+          return;
+        }
         if (isNameDeleting) {
           nameLength--;
           typewriterHeroName.textContent = heroNameText.substring(0, nameLength);
@@ -3045,22 +3079,27 @@
           isNameDeleting = false;
         }
 
-        setTimeout(loopHeroNameTypewriter, speed);
+        heroNameTimer = setTimeout(loopHeroNameTypewriter, speed);
       }
 
-      // Mulai loop animasi typewriter I'M ESA
-      setTimeout(loopHeroNameTypewriter, 500);
+      startHeroNameTypewriter = () => {
+        if (!heroNameTimer && isHeroInView) {
+          heroNameTimer = setTimeout(loopHeroNameTypewriter, 500);
+        }
+      };
+      startHeroNameTypewriter();
     }
 
-    // 3. Inspira UI: Text Reveal Effect (Deskripsi Bio Kata/Karakter Bertahap)
+    // 3. Inspira UI: Text Reveal Effect (Deskripsi Bio Kata/Karakter Bertahap - 1 timer + CSS delay)
     const bioRevealEl = document.getElementById("hero-bio-reveal");
     if (bioRevealEl) {
       const originalBio = bioRevealEl.textContent.trim();
       bioRevealEl.innerHTML = "";
 
-      // Bungkus setiap karakter dalam span .reveal-char untuk efek text reveal
+      const frag = document.createDocumentFragment();
       const words = originalBio.split(" ");
-      words.forEach((word, wIdx) => {
+      let charIdx = 0;
+      words.forEach((word) => {
         const wordSpan = document.createElement("span");
         wordSpan.className = "inline-block whitespace-nowrap mr-[0.25em]";
 
@@ -3068,24 +3107,23 @@
           const charSpan = document.createElement("span");
           charSpan.className = "reveal-char";
           charSpan.textContent = char;
+          charSpan.style.transitionDelay = `${charIdx * 14}ms`;
+          charIdx++;
           wordSpan.appendChild(charSpan);
         }
-        bioRevealEl.appendChild(wordSpan);
+        frag.appendChild(wordSpan);
       });
+      bioRevealEl.appendChild(frag);
 
-      // Mulai mengungkap karakter secara berurutan setelah jeda pembuka
-      const allChars = bioRevealEl.querySelectorAll(".reveal-char");
+      // Satu timer saja untuk memicu seluruh reveal via CSS transition-delay
       setTimeout(() => {
-        allChars.forEach((c, idx) => {
-          setTimeout(() => {
-            c.classList.add("is-visible");
-          }, idx * 16);
-        });
-      }, 750);
+        bioRevealEl.classList.add("is-visible");
+      }, 650);
     }
 
     // 4. Inspira UI: Typewriter Text Alternating Loop ("WEB" <-> "MOBILE")
     const typewriterRoleWord = document.getElementById("typewriter-role-word");
+    let startRoleTypewriter = null;
     if (typewriterRoleWord) {
       const roleWords = ["WEB", "MOBILE"];
       let roleWordIndex = 0;
@@ -3093,6 +3131,10 @@
       let isRoleDeleting = false;
 
       function loopRoleTypewriter() {
+        if (!isHeroInView) {
+          roleTimer = null;
+          return;
+        }
         const currentRole = roleWords[roleWordIndex];
 
         if (isRoleDeleting) {
@@ -3116,11 +3158,33 @@
           roleSpeed = 400;
         }
 
-        setTimeout(loopRoleTypewriter, roleSpeed);
+        roleTimer = setTimeout(loopRoleTypewriter, roleSpeed);
       }
 
-      // Mulai typewriter role bergantian
-      setTimeout(loopRoleTypewriter, 600);
+      startRoleTypewriter = () => {
+        if (!roleTimer && isHeroInView) {
+          roleTimer = setTimeout(loopRoleTypewriter, 600);
+        }
+      };
+      startRoleTypewriter();
+    }
+
+    if (overviewSection && "IntersectionObserver" in window) {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          isHeroInView = entry.isIntersecting;
+          if (isHeroInView) {
+            overviewSection.classList.remove("hero-offscreen");
+            if (startHeroNameTypewriter) startHeroNameTypewriter();
+            if (startRoleTypewriter) startRoleTypewriter();
+          } else {
+            overviewSection.classList.add("hero-offscreen");
+            if (heroNameTimer) { clearTimeout(heroNameTimer); heroNameTimer = null; }
+            if (roleTimer) { clearTimeout(roleTimer); roleTimer = null; }
+          }
+        });
+      }, { threshold: 0.05 });
+      heroObserver.observe(overviewSection);
     }
 
 

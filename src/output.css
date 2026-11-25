@@ -2392,6 +2392,11 @@
   -webkit-backdrop-filter: none;
   overflow: visible;
 }
+@media (min-width: 768px) {
+  .inspira-dock-container {
+    height: 92px;
+  }
+}
 .dark .inspira-dock-container {
   background: transparent;
   border: none;
@@ -2465,60 +2470,46 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 44px;
 }
 #capsule-trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-#capsule-expanded {
-  display: flex;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.96);
+  transform: translate(-50%, -50%) scale(1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s;
+}
+#capsule-expanded {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  display: flex;
   width: 100%;
   max-width: min(100%, 580px);
   justify-content: center;
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
 }
 #project-capsule-wrapper.is-open #capsule-trigger {
   opacity: 0;
-  pointer-events: none;
   visibility: hidden;
-  position: absolute;
-  transform: scale(0.9);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.9);
 }
 #project-capsule-wrapper.is-open #capsule-expanded {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  position: relative;
-  top: auto;
-  left: auto;
-  transform: none;
-}
-@media (min-width: 768px) {
-  #project-capsule-wrapper:hover #capsule-trigger {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    position: absolute;
-    transform: scale(0.9);
-  }
-  #project-capsule-wrapper:hover #capsule-expanded {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-  }
+  transform: translate(-50%, -50%) scale(1);
 }
 #proj-pill-container {
   display: flex;
@@ -2542,6 +2533,13 @@
     background: #f5f5f7;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+  .backdrop-blur-xl, .backdrop-blur-md, .backdrop-blur-sm {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  #nav-dock {
+    background-color: rgba(255, 255, 255, 0.96) !important;
   }
 }
 #proj-pill-container::-webkit-scrollbar {
